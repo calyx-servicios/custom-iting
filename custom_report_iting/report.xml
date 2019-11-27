@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+ 
+
+    <record id="action_aeroo_report_ar_payment_iting" model="ir.actions.report">
+        <field name="name">Argentinian Aeroo Payment Iting</field>
+        <field name="model">account.payment.group</field>
+        <field name="report_name">aeroo_report_ar_payment_iting</field>
+        <field name="sequence" eval="4"/>
+        <field name="report_type">aeroo</field>
+        <field name="in_format">oo-odt</field>
+        <field name="parser_state">loc</field>
+        <field name="parser_loc">l10n_ar_aeroo_payment_group/parser.py</field>
+        <field name="report_file">custom_report_iting/report/payment_2.odt</field>
+        <field name="tml_source">file</field>
+        <field name="print_logo">company_logo</field> <!-- Or 'company_logo' or ''  -->
+        <field name="process_sep" eval="True"/>
+        <field name="background_image" type="base64" file="l10n_ar_aeroo_payment_group/payment.png"/>
+        <field name="use_background_image" eval="True"/>
+        <field name="out_format" ref="report_aeroo.report_mimetypes_pdf_odt"/>
+        <field name="print_report_name">(object.partner_type == 'supplier' and 'Orden de pago' or 'Recibo') + ' ' + object.document_number</field>
+    </record>
+
+
+
+    <record id="action_aeroo_certificado_de_retencion_report_iting" model="ir.actions.report">
+    <field name="name">Certificado de Retención</field>
+    <field name="model">account.payment</field>
+    <field name="report_name">certificado_de_retencion_report_iting</field>
+    <field name="report_type">aeroo</field>
+    <field name="in_format">oo-odt</field>
+    <field name="sequence" eval="4"/>
+    <field name="report_file">custom_report_iting/report/certificado_de_retencion_report.odt</field>
+    <field name="tml_source">file</field>
+    <field name="out_format" ref="report_aeroo.report_mimetypes_pdf_odt"/>
+    <field name="print_report_name">(object.tax_withholding_id.name or '') + " N° " + (object.withholding_number or object.name or '')</field>
+</record>
+
+
+
+    <record id="view_account_payment_from_group_inherit_tree" model="ir.ui.view">
+        <field name="name">account.payment.tree</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="l10n_ar_account_withholding.view_account_payment_from_group_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//button[@name='%(account_payment_group_report_extend.action_aeroo_certificado_de_retencion_report_copy)d']" position="replace">
+                <button name="%(action_aeroo_certificado_de_retencion_report_iting)d" icon="fa-print " help="Print withholding voucher" type="action"
+                 attrs="{'invisible': ['|', ('payment_method_code', '!=', 'withholding'), ('partner_type', '!=', 'supplier')]}"
+                    
+                    />
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="purchase_order_form_iting" model="ir.ui.view">
+        <field name="name">purchase.order.form.iting</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//button[@name='print_quotation']" position="replace">
+                <button name="print_quotation" string="Print RFQ" type="object" states="draft,to approve,sent,purchase,done"  groups="base.group_user"/>
+            </xpath>
+        </field>
+    </record>
+ 
+    <!-- <record id="view_account_payment_from_group_iting" model="ir.ui.view">
+        <field name="name">account.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="l10n_ar_account_withholding.view_account_payment_from_group_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//button[@name='%(account_payment_group_report_extend.action_aeroo_certificado_de_retencion_report_copy)d']" position="replace">
+                <button name="%(action_aeroo_certificado_de_retencion_report_iting)d" icon="fa-print " help="Print withholding voucher" type="action"
+                 attrs="{'invisible': ['|', ('payment_method_code', '!=', 'withholding'), ('partner_type', '!=', 'supplier')]}"
+                    
+                    />
+            </xpath>
+        </field>
+    </record> -->
+
+
+
+
+</odoo>

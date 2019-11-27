@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* custom_report_iting
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-01 17:33+0000\n"
+"PO-Revision-Date: 2019-10-01 17:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_report_iting
+#: model:ir.actions.report,name:custom_report_iting.action_aeroo_report_ar_payment_iting
+msgid "Argentinian Aeroo Payment Iting"
+msgstr "Reporte Orden de Pago Iting"
+
+#. module: custom_report_iting
+#: model:ir.actions.report,name:custom_report_iting.action_aeroo_certificado_de_retencion_report_iting
+msgid "Certificado de Retención"
+msgstr "Certificado de Retención"
+
+#. module: custom_report_iting
+#: model:ir.model.fields,field_description:custom_report_iting.field_report_iting_report_display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: custom_report_iting
+#: model:ir.model.fields,field_description:custom_report_iting.field_report_iting_report_id
+msgid "ID"
+msgstr "ID"
+
+#. module: custom_report_iting
+#: model:ir.model.fields,field_description:custom_report_iting.field_report_iting_report___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: custom_report_iting
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom_purchase
+msgid "Mail:"
+msgstr "Correo:"
+
+#. module: custom_report_iting
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom_purchase
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Página: <span class=\"page\"/>/<span class=\"topage\"/>"
+
+#. module: custom_report_iting
+#: model:ir.ui.view,arch_db:custom_report_iting.purchase_order_form_iting
+msgid "Print RFQ"
+msgstr "Imprimir SdP"
+
+#. module: custom_report_iting
+#: model:ir.ui.view,arch_db:custom_report_iting.view_account_payment_from_group_inherit_tree
+msgid "Print withholding voucher"
+msgstr "Imprimir Comprobante de retención"
+
+#. module: custom_report_iting
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_boxed_custom
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom_purchase
+msgid "Tel:"
+msgstr "Tel.:"
+
+#. module: custom_report_iting
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom
+#: model:ir.ui.view,arch_db:custom_report_iting.external_layout_custom_purchase
+msgid "Web:"
+msgstr "Web:"
+
+#. module: custom_report_iting
+#: model:ir.model,name:custom_report_iting.model_report_iting_report
+msgid "report.iting_report"
+msgstr "report.iting_report"
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <report 
+            id="account_net_invoices"
+            model="account.invoice"
+            string="Net Invoices"
+            report_type="qweb-pdf"
+            name="custom_report_iting.report_net_invoice_with_payments"
+            file="custom_report_iting.report_net_invoice_with_payments"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            print_report_name="(object._get_printed_report_name())"
+        />
+
+        <report
+            id="account_net_invoices_without_payment"
+            model="account.invoice"
+            string="Net Invoices without Payment"
+            report_type="qweb-pdf"
+            name="custom_report_iting.report_net_invoice"
+            file="custom_report_iting.report_net_invoice"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            print_report_name="(object._get_printed_report_name())"
+        />
+    </data>
+</odoo>
