@@ -25,6 +25,16 @@
                       <field name="cost_usd_total"/>
                       <field name="price_usd_total"/>
                       <field name="state"/>
+                      <field name="sale_total"/>
+                      <field name="gross_profit"/>
+                      <field name="net_profit"/>
+                      <field name="tax_amount"/>
+                      <field name="fee_amount"/>
+                      <field name="net_contribution"/>
+            
+            
+            
+                      
                       </tree>
                     </field>
                </page>

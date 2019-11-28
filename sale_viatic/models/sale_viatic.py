@@ -66,6 +66,20 @@ class SaleViatic(models.Model):
         return active_id
 
     @api.model
+    def _get_default_viatic_fee(self):
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        viatic_fee=float(ICPSudo.get_param('sale_viatic.viatic_fee') or 0.0)
+        return viatic_fee
+
+    @api.model
+    def _get_default_viatic_tax(self):
+        ICPSudo = self.env['ir.config_parameter'].sudo()
+        viatic_tax=float(ICPSudo.get_param('sale_viatic.viatic_tax') or 0.0)
+        return viatic_tax
+
+        
+
+    @api.model
     def _default_lines(self):
         product_obj = self.env['product.product']
         lines = []
@@ -92,6 +106,38 @@ class SaleViatic(models.Model):
     cost_usd_total = fields.Float('Total USD Cost',compute='_compute_total',readonly=True)
     price_total = fields.Float('Total',compute='_compute_total',readonly=True)
     price_usd_total = fields.Float('Total USD',compute='_compute_total',readonly=True)
+    pricelist_id = fields.Many2one(related='sale_order_id.pricelist_id', string='Pricelist', readonly=True)
+    currency_id = fields.Many2one(related='sale_order_id.currency_id', string="Currency", readonly=True)
+    sale_total = fields.Monetary(related='sale_order_id.amount_untaxed', string="Sale Amount", readonly=True, store=True)
+    net_profit= fields.Float('Net Profit',compute='_compute_profit',readonly=True)
+    gross_profit= fields.Float('Gross Profit',compute='_compute_profit',readonly=True)
+    fee_amount= fields.Float('Fee',compute='_compute_profit',readonly=True)
+    tax_amount= fields.Float('Tax',compute='_compute_profit',readonly=True)
+    net_contribution= fields.Float('Net Contribution',compute='_compute_profit',readonly=True)
+    viatic_fee= fields.Float('Viatic Fee',default=_get_default_viatic_fee)
+    viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax)
+
+    @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost')
+    def _compute_profit(self):
+        for viatic in self:
+            gross_profit=0.0
+            net_profit=0.0
+            tax_amount=0.0
+            fee_amount=0.0
+            net_contribution=0.0
+            if viatic.sale_order_id:
+                untaxed_amount=viatic.sale_order_id.amount_untaxed
+                gross_profit=untaxed_amount-viatic.cost_total
+                fee_amount=untaxed_amount*viatic.viatic_fee/100.0
+                tax_amount=untaxed_amount*viatic.viatic_tax/100.0
+                net_profit=gross_profit-fee_amount-tax_amount
+                if untaxed_amount!=0:
+                    net_contribution=net_profit/untaxed_amount
+            viatic.gross_profit=round(gross_profit,2)
+            viatic.net_profit=round(net_profit,2)
+            viatic.tax_amount=round(tax_amount,2)
+            viatic.fee_amount=round(fee_amount,2)
+            viatic.net_contribution=round(net_contribution,2)
 
     @api.depends('line_ids','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost')
     def _compute_total(self):
