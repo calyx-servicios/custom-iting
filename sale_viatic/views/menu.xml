@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="viatic_menu_root"
+                name="Viatic"
+                web_icon="sale,static/description/icon.png"
+                active="True"
+                sequence="8"/>
+
+        <menuitem id="viatic_viatic_menu"
+                name="Viatic"
+                parent="viatic_menu_root"
+                sequence="2"/>
+
+        <menuitem id="sale_viatic_menu"
+                parent="sale_viatic.viatic_viatic_menu"
+                action="sale_viatic.sale_viatic_act"
+                sequence="10" groups="sales_team.group_sale_salesman"/>
+
+        <menuitem id="sale_viatic_line_menu"
+                parent="sale_viatic.viatic_viatic_menu"
+                action="sale_viatic.sale_viatic_line_act"
+                sequence="20" groups="sales_team.group_sale_salesman"/>
+
+
+        
+
+        
+    
+
+
+
+    </data>
+
+</openerp>

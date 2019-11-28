@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+
+
+    <record id="viatic_sale_order_form_inherit" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="name">Sale Order Viatic</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+            <button string="⇒ viatics" type="object"  name="set_viatics"  class="oe_link oe_edit_only" 
+                    attrs="{'invisible': [('state','not in',('draft'))]}"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page  name="sale_viatic_ids_page" string="Viatics">
+                    <field name="viatic_ids" context="{'active_id': active_id}">
+                      <tree create="false" >
+                      <field name="date_viatic"/>
+                      <field name="name"/>
+                      <field name="cost_total"/>
+                      <field name="price_total"/>
+                      <field name="manual_rate"/>
+                      <field name="cost_usd_total"/>
+                      <field name="price_usd_total"/>
+                      <field name="state"/>
+                      </tree>
+                    </field>
+               </page>
+            </xpath>
+
+
+        </field>
+    </record>
+
+  </data>
+</odoo>
