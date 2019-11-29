@@ -201,10 +201,11 @@ class SaleViatic(models.Model):
         if viatic_product_id and not self.env['product.product'].browse(viatic_product_id).exists():
             viatic_product_id = False
             raise UserError(_('The default Viatic product is not defined. Please review the Viatic settings'))
-        if viatic.pricelist_id and viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id and viatic.manual_rate<=0:
-            raise UserError(_('You must set a manual rate for currency or set the default company currency on the sale order'))
+        
         if viatic_product_id:
             for viatic in self:
+                if viatic.pricelist_id and viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id and viatic.manual_rate<=0:
+                    raise UserError(_('You must set a manual rate for currency or set the default company currency on the sale order'))
                 total=viatic.price_total
                 if viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id:
                     total=viatic.price_usd_total
