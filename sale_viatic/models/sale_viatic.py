@@ -200,18 +200,24 @@ class SaleViatic(models.Model):
         viatic_product_id = literal_eval(ICPSudo.get_param('sale_viatic.viatic_product', default='False'))
         if viatic_product_id and not self.env['product.product'].browse(viatic_product_id).exists():
             viatic_product_id = False
+            raise UserError(_('The default Viatic product is not defined. Please review the Viatic settings'))
+        if viatic.pricelist_id and viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id and viatic.manual_rate<=0:
+            raise UserError(_('You must set a manual rate for currency or set the default company currency on the sale order'))
         if viatic_product_id:
             for viatic in self:
+                total=viatic.price_total
+                if viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id:
+                    total=viatic.price_usd_total
                 line_id=line_obj.search([('order_id','=',viatic.sale_order_id.id),('product_id','=',viatic_product_id)])
                 if line_id:
-                    line_id.price_unit=viatic.price_total
+                    line_id.price_unit=total
                     line_id.product_uom_qty=1.0
                 else:
                     line_obj.create({
                         'order_id':self.sale_order_id.id,
                         'product_id':viatic_product_id,
                         'product_uom_qty': 1.0,
-                        'price_unit':viatic.price_total
+                        'price_unit':total
                     })
                 compose_form_id = ir_model_data.get_object_reference('sale', 'view_order_form')[1]
                 return {
