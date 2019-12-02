@@ -19,7 +19,7 @@ class SaleViaticWizardLine(models.TransientModel):
     cost = fields.Float(string='Cost', )
     markup = fields.Float(string='MarkUp',default=1.0)
     quantity = fields.Integer(string='Quantity',states={'draft': [('readonly', False)]},)
-    cost_total = fields.Integer(string='Cost Totl',compute='_compute_price', readonly=True)
+    cost_total = fields.Integer(string='Cost Total',compute='_compute_price', readonly=True)
     price_unit = fields.Integer(string='Unit Price',compute='_compute_price',readonly=True)
     price_total = fields.Integer(string='Total Price',compute='_compute_price',readonly=True)
     
