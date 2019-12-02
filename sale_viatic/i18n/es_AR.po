@@ -334,7 +334,7 @@ msgstr "Pedido de venta"
 #: model:ir.ui.menu,name:sale_viatic.sale_viatic_menu
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form
 msgid "Sale Viatic"
-msgstr "Viatico de Venta"
+msgstr "Viaticos de Venta"
 
 #. module: sale_viatic
 #: model:ir.actions.act_window,name:sale_viatic.sale_viatic_line_act
@@ -342,7 +342,7 @@ msgstr "Viatico de Venta"
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_line_form
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_line_tree
 msgid "Sale Viatic Line"
-msgstr "Viatico de Venta Linea"
+msgstr "Lineas Viaticos de Venta"
 
 #. module: sale_viatic
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form
@@ -498,7 +498,7 @@ msgstr "Usuario: Sus Viaticos"
 #: model:ir.ui.menu,name:sale_viatic.viatic_menu_root
 #: model:ir.ui.menu,name:sale_viatic.viatic_viatic_menu
 msgid "Viatic"
-msgstr "Viatico"
+msgstr "Viaticos"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_viatic_fee
