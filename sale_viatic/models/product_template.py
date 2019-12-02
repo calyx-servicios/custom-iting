@@ -14,6 +14,5 @@ from odoo.tools import pycompat
 class ProductTemplate(models.Model):
     _inherit = "product.template"
     
-    viatic_ok = fields.Boolean(
-        'Can be used as Viatic', default=False,
-        help="Specify if the product can be selected in a sales containter line.")
+    viatic_ok = fields.Boolean(string='Can be used as a Viatic',default=False,
+        help="Specify if the product can be selected in a sales viatic line.")

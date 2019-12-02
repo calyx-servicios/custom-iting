@@ -11,7 +11,9 @@
         <menuitem id="viatic_viatic_menu"
                 name="Viatic"
                 parent="viatic_menu_root"
-                sequence="2"/>
+                sequence="2"
+                
+                />
 
         <menuitem id="sale_viatic_menu"
                 parent="sale_viatic.viatic_viatic_menu"

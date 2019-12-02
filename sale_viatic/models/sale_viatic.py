@@ -26,6 +26,7 @@ class SaleViaticLine(models.Model):
 
     sale_viatic_id = fields.Many2one('sale.viatic', string='Sale Viatic',ondelete='cascade')
     product_id = fields.Many2one('product.product', string='Product', domain=[('viatic_ok', '=', True)], change_default=True, ondelete='restrict', required=True,states={'draft': [('readonly', False)]})
+    category_id = fields.Many2one(related='product_id.categ_id', string="Category", readonly=True, store=True)
     quantity = fields.Integer(string='Quantity',default=1,states={'draft': [('readonly', False)]})
     cost = fields.Float(string='Cost', )
     markup = fields.Float(string='MarkUp',default=1.0)
@@ -109,6 +110,7 @@ class SaleViatic(models.Model):
     pricelist_id = fields.Many2one(related='sale_order_id.pricelist_id', string='Pricelist', readonly=True)
     currency_id = fields.Many2one(related='sale_order_id.currency_id', string="Currency", readonly=True)
     sale_total = fields.Monetary(related='sale_order_id.amount_untaxed', string="Sale Amount", readonly=True, store=True)
+    sale_cost = fields.Monetary(related='sale_order_id.amount_cost', string="Sale Cost Amount", readonly=True, store=True)
     net_profit= fields.Float('Net Profit',compute='_compute_profit',readonly=True)
     gross_profit= fields.Float('Gross Profit',compute='_compute_profit',readonly=True)
     fee_amount= fields.Float('Fee',compute='_compute_profit',readonly=True)
@@ -117,7 +119,7 @@ class SaleViatic(models.Model):
     viatic_fee= fields.Float('Viatic Fee',default=_get_default_viatic_fee)
     viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax)
 
-    @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost')
+    @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost','sale_order_id.amount_cost')
     def _compute_profit(self):
         for viatic in self:
             gross_profit=0.0
@@ -126,13 +128,15 @@ class SaleViatic(models.Model):
             fee_amount=0.0
             net_contribution=0.0
             if viatic.sale_order_id:
-                untaxed_amount=viatic.sale_order_id.amount_untaxed
-                gross_profit=untaxed_amount-viatic.cost_total
+                untaxed_amount=viatic.sale_order_id.amount_untaxed-viatic.sale_order_id.amount_cost
+                gross_profit=untaxed_amount
+                # 
+                # gross_profit=untaxed_amount-viatic.cost_total
                 fee_amount=untaxed_amount*viatic.viatic_fee/100.0
                 tax_amount=untaxed_amount*viatic.viatic_tax/100.0
                 net_profit=gross_profit-fee_amount-tax_amount
                 if untaxed_amount!=0:
-                    net_contribution=net_profit/untaxed_amount
+                    net_contribution=net_profit/untaxed_amount*100
             viatic.gross_profit=round(gross_profit,2)
             viatic.net_profit=round(net_profit,2)
             viatic.tax_amount=round(tax_amount,2)
@@ -207,18 +211,22 @@ class SaleViatic(models.Model):
                 if viatic.pricelist_id and viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id and viatic.manual_rate<=0:
                     raise UserError(_('You must set a manual rate for currency or set the default company currency on the sale order'))
                 total=viatic.price_total
+                cost_total=viatic.cost_total
                 if viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id:
                     total=viatic.price_usd_total
+                    cost_total=viatic.cost_usd_total
                 line_id=line_obj.search([('order_id','=',viatic.sale_order_id.id),('product_id','=',viatic_product_id)])
                 if line_id:
                     line_id.price_unit=total
                     line_id.product_uom_qty=1.0
+                    line_id.purchase_price=cost_total
                 else:
                     line_obj.create({
                         'order_id':self.sale_order_id.id,
                         'product_id':viatic_product_id,
                         'product_uom_qty': 1.0,
-                        'price_unit':total
+                        'price_unit':total,
+                        'purchase_price': cost_total,
                     })
                 compose_form_id = ir_model_data.get_object_reference('sale', 'view_order_form')[1]
                 return {

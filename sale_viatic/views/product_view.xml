@@ -9,6 +9,7 @@
         <xpath expr="//div[@name='options']" position="inside">
             <div>
                 <field name="viatic_ok"/>
+                <label for="viatic_ok"/>
             </div>
         </xpath>
         </field>

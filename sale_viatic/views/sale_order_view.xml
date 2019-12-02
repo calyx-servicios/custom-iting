@@ -27,20 +27,28 @@
                       <field name="state"/>
                       <field name="sale_total"/>
                       <field name="gross_profit"/>
-                      <field name="net_profit"/>
                       <field name="tax_amount"/>
                       <field name="fee_amount"/>
+                      <field name="net_profit"/>
                       <field name="net_contribution"/>
-            
-            
-            
-                      
                       </tree>
                     </field>
                </page>
             </xpath>
 
 
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="sale_cost_sale_order">
+        <field name="name">sale.order.cost.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="amount_cost" groups="base.group_user"/>
+            </xpath>
         </field>
     </record>
 
