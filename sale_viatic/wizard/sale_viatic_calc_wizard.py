@@ -40,7 +40,13 @@ class SaleViaticCalcWizard(models.TransientModel):
         viatic_obj = self.env['sale.viatic']
         lines = []
         for viatic in viatic_obj.browse(self._context.get('active_ids')):
-            if viatic.invoice_status in ['invoiced']:
+            full_paid=False
+            if viatic.invoice_ids and len(viatic.invoice_ids)>0:
+                full_paid=True
+            for invoice in viatic.invoice_ids:
+                if invoice.state not in ['paid']:
+                    full_paid=False
+            if full_paid:
                 lines.append({
                         'sale_viatic_id':viatic.id,
                         'viatic_id':viatic.id,
@@ -52,7 +58,7 @@ class SaleViaticCalcWizard(models.TransientModel):
         if len(lines)>0:
             return lines
         else:
-            raise UserError(_('Please Select Viatics of Invoiced Sales Orders!'))
+            raise UserError(_('Please Select Viatics of Invoiced and Paid Sales Orders!'))
 
     line_ids = fields.One2many('sale.viatic.calc.wizard.line', 'wizard_id', string='Lines', default=_default_lines)
     
