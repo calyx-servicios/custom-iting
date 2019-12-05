@@ -40,15 +40,19 @@ class SaleViaticCalcWizard(models.TransientModel):
         viatic_obj = self.env['sale.viatic']
         lines = []
         for viatic in viatic_obj.browse(self._context.get('active_ids')):
-            lines.append({
-                    'sale_viatic_id':viatic.id,
-                    'viatic_id':viatic.id,
-                    'net_profit': viatic.net_profit,
-                    'commission_percentage': viatic.commission_percentage,
-                    'commission_state': viatic.commission_state
-                    })
-        
-        return lines
+            if viatic.invoice_status in ['invoiced']:
+                lines.append({
+                        'sale_viatic_id':viatic.id,
+                        'viatic_id':viatic.id,
+                        'net_profit': viatic.net_profit,
+                        'commission_percentage': viatic.commission_percentage,
+                        'commission_state': viatic.commission_state,
+                        'commission_amount': viatic.commission_amount,
+                        })
+        if len(lines)>0:
+            return lines
+        else:
+            raise UserError(_('Please Select Viatics of Invoiced Sales Orders!'))
 
     line_ids = fields.One2many('sale.viatic.calc.wizard.line', 'wizard_id', string='Lines', default=_default_lines)
     

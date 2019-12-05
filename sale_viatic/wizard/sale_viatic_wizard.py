@@ -22,7 +22,7 @@ class SaleViaticWizardLine(models.TransientModel):
     cost_total = fields.Integer(string='Cost Total',compute='_compute_price', readonly=True)
     price_unit = fields.Integer(string='Unit Price',compute='_compute_price',readonly=True)
     price_total = fields.Integer(string='Total Price',compute='_compute_price',readonly=True)
-    commission_state = fields.Selection([('draft', 'Draft'),('paid', 'Paid'),('cancel', 'Cancel')], string='State',default='draft')
+    
 
     @api.depends('quantity','cost','markup','state')
     def _compute_price(self):
