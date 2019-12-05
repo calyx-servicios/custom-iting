@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
         'wizard/sale_viatic_wizard.xml',
+        'wizard/sale_viatic_calc_wizard.xml',
         'views/sale_order_view.xml',
         'views/product_view.xml',
         'views/sale_viatic_view.xml',

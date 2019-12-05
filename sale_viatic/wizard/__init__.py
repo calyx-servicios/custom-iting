@@ -4,4 +4,5 @@
 # directory
 ##############################################################################
 
+from . import sale_viatic_calc_wizard
 from . import sale_viatic_wizard

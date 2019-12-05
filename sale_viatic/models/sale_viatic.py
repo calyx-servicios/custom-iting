@@ -103,21 +103,32 @@ class SaleViatic(models.Model):
     state = fields.Selection([('draft', 'Draft'),('open', 'Open'),('close', 'Close'),('cancel', 'Cancel')], string='State',default='draft')
     note = fields.Text('Terms and conditions',)
     manual_rate = fields.Float('Manual Rate',)
-    cost_total = fields.Float('Total Cost',compute='_compute_total',readonly=True)
-    cost_usd_total = fields.Float('Total USD Cost',compute='_compute_total',readonly=True)
-    price_total = fields.Float('Total',compute='_compute_total',readonly=True)
-    price_usd_total = fields.Float('Total USD',compute='_compute_total',readonly=True)
+    cost_total = fields.Float('Total Cost',compute='_compute_total',readonly=True,store=True)
+    cost_usd_total = fields.Float('Total USD Cost',compute='_compute_total',readonly=True,store=True)
+    price_total = fields.Float('Total',compute='_compute_total',readonly=True,store=True)
+    price_usd_total = fields.Float('Total USD',compute='_compute_total',readonly=True,store=True)
     pricelist_id = fields.Many2one(related='sale_order_id.pricelist_id', string='Pricelist', readonly=True)
     currency_id = fields.Many2one(related='sale_order_id.currency_id', string="Currency", readonly=True)
     sale_total = fields.Monetary(related='sale_order_id.amount_untaxed', string="Sale Amount", readonly=True, store=True)
     sale_cost = fields.Monetary(related='sale_order_id.amount_cost', string="Sale Cost Amount", readonly=True, store=True)
-    net_profit= fields.Float('Net Profit',compute='_compute_profit',readonly=True)
-    gross_profit= fields.Float('Gross Profit',compute='_compute_profit',readonly=True)
-    fee_amount= fields.Float('Fee',compute='_compute_profit',readonly=True)
-    tax_amount= fields.Float('Tax',compute='_compute_profit',readonly=True)
-    net_contribution= fields.Float('Net Contribution',compute='_compute_profit',readonly=True)
+    net_profit= fields.Float('Net Profit',compute='_compute_profit',readonly=True,store=True)
+    gross_profit= fields.Float('Gross Profit',compute='_compute_profit',readonly=True,store=True)
+    fee_amount= fields.Float('Fee',compute='_compute_profit',readonly=True,store=True)
+    tax_amount= fields.Float('Tax',compute='_compute_profit',readonly=True,store=True)
+    net_contribution= fields.Float('Net Contribution',compute='_compute_profit',readonly=True,store=True)
     viatic_fee= fields.Float('Viatic Fee',default=_get_default_viatic_fee)
     viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax)
+    invoice_ids = fields.Many2many(related='sale_order_id.invoice_ids', string='Invoices')
+    invoice_status = fields.Selection(related='sale_order_id.invoice_status',string='Invoice Status', store=True, readonly=True)
+    commission_state = fields.Selection([('draft', 'Draft'),('paid', 'Paid'),('cancel', 'Cancel')], string='State',default='draft')
+    commission_amount= fields.Float('Comission Amount', compute='_compute_commission', store=True, readonly=True)
+    commission_percentage= fields.Float('Commission Percentage')
+
+    @api.depends('commission_percentage','net_profit')
+    def _compute_commission(self):
+        res = {}
+        for line in self:
+            line.commission_amount=round(line.commission_percentage*line.net_profit/100.0,2)
 
     @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost','sale_order_id.amount_cost')
     def _compute_profit(self):
@@ -193,7 +204,9 @@ class SaleViatic(models.Model):
             'state': 'draft',
         })
 
-    
+
+
+
 
     @api.multi
     def action_set(self):

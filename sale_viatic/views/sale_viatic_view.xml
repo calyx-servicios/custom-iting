@@ -115,6 +115,11 @@
                       <field name="net_profit"/>
                       <field name="net_contribution"/>
                       </group>
+                      <group>
+                     <field name="commission_percentage"/>
+                     <field name="commission_amount"/>
+                      <field name="commission_state"/>
+                      </group>
                      </group>
                      <field name="note" class="oe_inline" placeholder="Terms and conditions..."/>
                     </page>
@@ -137,6 +142,8 @@
                 <tree string="Sale viatic">
                     <field name="name" />
                     <field name="sale_order_id"/>
+                    <field name="invoice_ids"/>
+                    <field name="invoice_status"/>
                     <field name="date_viatic"/>
                     <field name="user_id"/>
                     <field name="partner_id" />
@@ -154,6 +161,9 @@
                       <field name="fee_amount"/>
                       <field name="net_profit"/>
                       <field name="net_contribution"/>
+                      <field name="commission_percentage"/>
+                      <field name="commission_amount"/>
+                      <field name="commission_state"/>
                 </tree>
             </field>
         </record>
@@ -173,11 +183,13 @@
                     <separator/>
                     <filter name="open" string="Open" domain="[('state','=', 'open')]"/>
                     <separator/>
+                    <field name="commission_state"/>
                     <filter string="Creator" icon="terp-partner" domain="[]" context="{'group_by':'create_uid'}"/>
                     <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>
                     <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
                     <separator/>
                     <filter string="State" icon="terp-partner" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Commission State" icon="terp-partner" domain="[]" context="{'group_by':'commission_state'}"/>
             </search>
             </field>
         </record>
