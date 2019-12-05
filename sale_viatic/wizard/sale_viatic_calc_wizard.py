@@ -56,7 +56,15 @@ class SaleViaticCalcWizard(models.TransientModel):
 
     line_ids = fields.One2many('sale.viatic.calc.wizard.line', 'wizard_id', string='Lines', default=_default_lines)
     
+    commission_amount= fields.Float('Comission Amount', compute='_compute_commission')
 
+    @api.depends('line_ids.commission_percentage')
+    def _compute_commission(self):
+        res = {}
+        total =0.0
+        for line in self.line_ids:
+            total+=line.commission_amount
+        self.commission_amount=round(total,2)
 
     @api.multi
     def set_viatic(self):

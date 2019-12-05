@@ -18,6 +18,9 @@
                         </field>
                     </page>
                 </notebook>
+                <group>
+                    <field name="commission_amount" readonly="1"/>
+                </group>
                 <footer>
                 <button name='set_viatic' string='Set'  class='oe_highlight' type='object'/>
                 <button name='set_viatic_and_pay' string='Set and Pay'  class='oe_highlight' type='object'/>
