@@ -44,7 +44,7 @@ class SaleViaticCalcWizard(models.TransientModel):
             if viatic.invoice_ids and len(viatic.invoice_ids)>0:
                 full_paid=True
             for invoice in viatic.invoice_ids:
-                if invoice.state not in ['paid']:
+                if invoice.state not in ['paid','open','draft']:
                     full_paid=False
             if full_paid:
                 lines.append({
@@ -92,7 +92,14 @@ class SaleViaticCalcWizard(models.TransientModel):
                 _viatic=viatic_obj.browse(viatic.viatic_id)
                 _logger.debug('===>%r',_viatic.name)
                 _viatic.commission_percentage=viatic.commission_percentage
-                _viatic.commission_state='paid'
+                full_paid=False
+                if _viatic.invoice_ids and len(_viatic.invoice_ids)>0:
+                    full_paid=True
+                    for invoice in _viatic.invoice_ids:
+                        if invoice.state not in ['paid']:
+                            full_paid=False
+                if full_paid:
+                    _viatic.commission_state='paid'
         return {}                      
         
         

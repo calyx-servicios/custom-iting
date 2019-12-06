@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-05 14:04+0000\n"
-"PO-Revision-Date: 2019-12-05 14:04+0000\n"
+"POT-Creation-Date: 2019-12-06 16:31+0000\n"
+"PO-Revision-Date: 2019-12-06 16:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,6 @@ msgstr "Cateogria"
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form
 #: selection:sale.viatic,commission_state:0
 #: selection:sale.viatic.calc.wizard.line,commission_state:0
-#: selection:sale.viatic.wizard.line,commission_state:0
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -39,6 +38,7 @@ msgid "Category"
 msgstr "Categoría"
 
 #. module: sale_viatic
+#: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_commission_amount
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_line_commission_amount
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_commission_amount
 msgid "Comission Amount"
@@ -121,7 +121,6 @@ msgstr "Mostrar Nombre"
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form
 #: selection:sale.viatic,commission_state:0
 #: selection:sale.viatic.calc.wizard.line,commission_state:0
-#: selection:sale.viatic.wizard.line,commission_state:0
 msgid "Draft"
 msgstr "Borrador"
 
@@ -148,12 +147,18 @@ msgid "ID"
 msgstr "ID"
 
 #. module: sale_viatic
+#: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_invoice_names
+msgid "Invoice Names"
+msgstr "Facturas"
+
+#. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_invoice_status
 msgid "Invoice Status"
 msgstr "Estado de la factura"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_invoice_ids
+#: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form
 msgid "Invoices"
 msgstr "Facturas"
 
@@ -217,9 +222,9 @@ msgstr "Ganancia Neta"
 
 #. module: sale_viatic
 #: code:addons/sale_viatic/models/sale_viatic.py:93
-#: code:addons/sale_viatic/models/sale_viatic.py:190
-#: code:addons/sale_viatic/models/sale_viatic.py:192
-#: code:addons/sale_viatic/models/sale_viatic.py:194
+#: code:addons/sale_viatic/models/sale_viatic.py:201
+#: code:addons/sale_viatic/models/sale_viatic.py:203
+#: code:addons/sale_viatic/models/sale_viatic.py:205
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -233,7 +238,6 @@ msgstr "Abierta"
 #. module: sale_viatic
 #: selection:sale.viatic,commission_state:0
 #: selection:sale.viatic.calc.wizard.line,commission_state:0
-#: selection:sale.viatic.wizard.line,commission_state:0
 msgid "Paid"
 msgstr "Pagado"
 
@@ -242,6 +246,12 @@ msgstr "Pagado"
 #: model:ir.ui.view,arch_db:sale_viatic.view_sale_viatic_line_filter
 msgid "Partner"
 msgstr "Empresa"
+
+#. module: sale_viatic
+#: code:addons/sale_viatic/wizard/sale_viatic_calc_wizard.py:61
+#, python-format
+msgid "Please Select Viatics of Invoiced and Paid Sales Orders!"
+msgstr "Por favor seleccione viaticos de ordenes de ventas con facturas"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_pricelist_id
@@ -291,7 +301,7 @@ msgid "Sale Cost Amount"
 msgstr "Costo de la Venta"
 
 #. module: sale_viatic
-#: code:addons/sale_viatic/models/sale_viatic.py:246
+#: code:addons/sale_viatic/models/sale_viatic.py:257
 #, python-format
 msgid "Sale Order"
 msgstr "Pedido de venta"
@@ -391,7 +401,6 @@ msgstr "Configuración"
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_line_commission_state
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_commission_state
-#: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_wizard_line_commission_state
 #: model:ir.ui.view,arch_db:sale_viatic.view_sale_viatic_filter
 #: model:ir.ui.view,arch_db:sale_viatic.view_sale_viatic_line_filter
 msgid "State"
@@ -409,7 +418,7 @@ msgid "Terms and conditions..."
 msgstr "Términos y condiciones..."
 
 #. module: sale_viatic
-#: code:addons/sale_viatic/models/sale_viatic.py:220
+#: code:addons/sale_viatic/models/sale_viatic.py:231
 #, python-format
 msgid "The default Viatic product is not defined. Please review the Viatic settings"
 msgstr "El producto por defecto de viaticos no esta definido. Por favor verificque la configuracion de Viaticos"
@@ -451,11 +460,6 @@ msgstr "Precio unitario"
 #: model:ir.ui.view,arch_db:sale_viatic.view_sale_viatic_line_filter
 msgid "User"
 msgstr "Usuario"
-
-#. module: sale_viatic
-#: model:res.groups,name:sale_viatic.sale_viatic_user_group_all
-msgid "User: All Viatics"
-msgstr "Usuario: Todos los viaticos"
 
 #. module: sale_viatic
 #: model:res.groups,name:sale_viatic.sale_viatic_user_group
@@ -513,13 +517,13 @@ msgid "You can place here every move related with sales viatic."
 msgstr "Aca estan todos los movientos de viaticos"
 
 #. module: sale_viatic
-#: code:addons/sale_viatic/models/sale_viatic.py:181
+#: code:addons/sale_viatic/models/sale_viatic.py:192
 #, python-format
 msgid "You cannot delete a viatic which is not draft or cancelled. You should cancel it first."
 msgstr "No puede eliminar Viaticos que no esten en estado Borrador o Cancelados."
 
 #. module: sale_viatic
-#: code:addons/sale_viatic/models/sale_viatic.py:225
+#: code:addons/sale_viatic/models/sale_viatic.py:236
 #, python-format
 msgid "You must set a manual rate for currency or set the default company currency on the sale order"
 msgstr "Debe configurar una tasa manual de moneda o utilizar la definida para la compañia"
@@ -540,11 +544,6 @@ msgid "res.config.settings"
 msgstr "res.config.settings"
 
 #. module: sale_viatic
-#: model:res.groups,comment:sale_viatic.sale_viatic_user_group_all
-msgid "the user will have access to all records of everyone in the sales application."
-msgstr "el usuario tendrá acceso a todos los registros en la aplicación de ventas."
-
-#. module: sale_viatic
 #: model:res.groups,comment:sale_viatic.sale_viatic_user_group
 msgid "the user will have access to his own data in the sales application."
 msgstr "el usuario tendrá acceso a sus propios datos en la aplicación ventas."
@@ -557,7 +556,7 @@ msgstr "el usuario tendrá acceso a la configuración de ventas así como a los 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_line_sale_viatic_id
 msgid "viatic"
-msgstr "viatic"
+msgstr "viatico"
 
 #. module: sale_viatic
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form

@@ -34,6 +34,7 @@
             res_model="sale.viatic.calc.wizard"
             src_model="sale.viatic"
             view_mode="form"
+            groups="sale_viatic.group_viatic_manager"
             target="new"
             key2="client_action_multi"
             id="action_viatic_commission" />

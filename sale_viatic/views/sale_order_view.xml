@@ -14,7 +14,7 @@
                     attrs="{'invisible': [('state','not in',('draft'))]}"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
-                <page  name="sale_viatic_ids_page" string="Viatics">
+                <page  name="sale_viatic_ids_page" string="Viatics" groups="sale_viatic.sale_viatic_user_group">
                     <field name="viatic_ids" context="{'active_id': active_id}">
                       <tree create="false" >
                       <field name="date_viatic"/>

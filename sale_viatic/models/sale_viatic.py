@@ -119,6 +119,7 @@ class SaleViatic(models.Model):
     viatic_fee= fields.Float('Viatic Fee',default=_get_default_viatic_fee)
     viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax)
     invoice_ids = fields.Many2many(related='sale_order_id.invoice_ids', string='Invoices')
+    invoice_names = fields.Char('Invoice Names',compute='_compute_names',store=True, readonly=True)
     invoice_status = fields.Selection(related='sale_order_id.invoice_status',string='Invoice Status', store=True, readonly=True)
     commission_state = fields.Selection([('draft', 'Draft'),('paid', 'Paid'),('cancel', 'Cancel')], string='State',default='draft')
     commission_amount= fields.Float('Comission Amount', compute='_compute_commission', store=True, readonly=True)
@@ -129,6 +130,16 @@ class SaleViatic(models.Model):
         res = {}
         for line in self:
             line.commission_amount=round(line.commission_percentage*line.net_profit/100.0,2)
+
+    @api.depends('invoice_ids','invoice_ids.state','sale_order_id.invoice_ids')
+    def _compute_names(self):
+        for viatic in self:
+            names=''
+            for invoice in viatic.invoice_ids:
+                if invoice.state in ['open','paid']:
+                    names+=invoice.name+'|'
+            viatic.invoice_names=names
+                
 
     @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost','sale_order_id.amount_cost')
     def _compute_profit(self):
