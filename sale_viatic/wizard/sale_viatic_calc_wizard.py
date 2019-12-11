@@ -18,6 +18,7 @@ class SaleViaticCalcWizardLine(models.TransientModel):
     commission_percentage=fields.Float('Commission Percentage',)
     commission_amount= fields.Float('Comission Amount', compute='_compute_commission')
     commission_state = fields.Selection([('draft', 'Draft'),('paid', 'Paid'),('cancel', 'Cancel')], string='State',default='draft',readonly=True)
+    state = fields.Selection([('payable', 'Payable'),('unpayable', 'Unpayable')],readonly=True)
 
     @api.depends('commission_percentage','net_profit')
     def _compute_commission(self):
@@ -46,6 +47,10 @@ class SaleViaticCalcWizard(models.TransientModel):
             for invoice in viatic.invoice_ids:
                 if invoice.state not in ['paid','open','draft']:
                     full_paid=False
+
+            state='unpayable'
+            if viatic.invoice_state in ['paid']:
+                state='payable'
             if full_paid:
                 lines.append({
                         'sale_viatic_id':viatic.id,
@@ -54,6 +59,7 @@ class SaleViaticCalcWizard(models.TransientModel):
                         'commission_percentage': viatic.commission_percentage,
                         'commission_state': viatic.commission_state,
                         'commission_amount': viatic.commission_amount,
+                        'state': state
                         })
         if len(lines)>0:
             return lines
@@ -92,13 +98,7 @@ class SaleViaticCalcWizard(models.TransientModel):
                 _viatic=viatic_obj.browse(viatic.viatic_id)
                 _logger.debug('===>%r',_viatic.name)
                 _viatic.commission_percentage=viatic.commission_percentage
-                full_paid=False
-                if _viatic.invoice_ids and len(_viatic.invoice_ids)>0:
-                    full_paid=True
-                    for invoice in _viatic.invoice_ids:
-                        if invoice.state not in ['paid']:
-                            full_paid=False
-                if full_paid:
+                if _viatic.invoice_state in ['paid']:
                     _viatic.commission_state='paid'
         return {}                      
         

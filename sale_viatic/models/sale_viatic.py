@@ -120,7 +120,7 @@ class SaleViatic(models.Model):
     viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax)
     invoice_ids = fields.Many2many(related='sale_order_id.invoice_ids', string='Invoices')
     invoice_names = fields.Char('Invoice Names',compute='_compute_names',store=True, readonly=True)
-    invoice_status = fields.Selection(related='sale_order_id.invoice_status',string='Invoice Status', store=True, readonly=True)
+    invoice_state = fields.Selection([('paid', 'Paid'),('open', 'Open')],compute='_compute_names',store=True, readonly=True)
     commission_state = fields.Selection([('draft', 'Draft'),('paid', 'Paid'),('cancel', 'Cancel')], string='State',default='draft')
     commission_amount= fields.Float('Comission Amount', compute='_compute_commission', store=True, readonly=True)
     commission_percentage= fields.Float('Commission Percentage')
@@ -131,14 +131,22 @@ class SaleViatic(models.Model):
         for line in self:
             line.commission_amount=round(line.commission_percentage*line.net_profit/100.0,2)
 
-    @api.depends('invoice_ids','invoice_ids.state','sale_order_id.invoice_ids')
+    @api.depends('invoice_ids','invoice_ids.state','sale_order_id.invoice_ids','sale_order_id.invoice_ids.state','state')
     def _compute_names(self):
         for viatic in self:
             names=''
+            paid=False
             for invoice in viatic.invoice_ids:
+                if invoice.state in ['paid']:
+                    paid=True
                 if invoice.state in ['open','paid']:
-                    names+=invoice.name+'|'
+                    names+=invoice.display_name+'|'
+            if paid:
+                viatic.invoice_state ='paid'
+            else:
+                viatic.invoice_state ='open'
             viatic.invoice_names=names
+            
                 
 
     @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost','sale_order_id.amount_cost')
@@ -157,8 +165,8 @@ class SaleViatic(models.Model):
                 fee_amount=untaxed_amount*viatic.viatic_fee/100.0
                 tax_amount=untaxed_amount*viatic.viatic_tax/100.0
                 net_profit=gross_profit-fee_amount-tax_amount
-                if untaxed_amount!=0:
-                    net_contribution=net_profit/untaxed_amount*100
+                if viatic.sale_order_id.amount_untaxed!=0:
+                    net_contribution=(net_profit/viatic.sale_order_id.amount_untaxed)*100
             viatic.gross_profit=round(gross_profit,2)
             viatic.net_profit=round(net_profit,2)
             viatic.tax_amount=round(tax_amount,2)

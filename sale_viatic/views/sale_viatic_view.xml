@@ -51,7 +51,7 @@
                                 <button name="action_cancel" type="object" states="draft,open,close" class="oe_highlight" string="Cancel"/>
                                 <button name="action_draft" type="object" states="cancel" class="oe_highlight" string="Draft"/>
                                  <button name="action_set" type="object" states="draft" class="oe_highlight" string="Set"/>
-                                <field name="state" widget="statusbar" editable="True"/>
+                                <field name="state" widget="statusbar" clickable="True"/>
                         </header>
 
                     <sheet>
@@ -152,7 +152,7 @@
                     <field name="name" />
                     <field name="sale_order_id"/>
                     <field name="invoice_names"/>
-                    <field name="invoice_status"/>
+                    <field name="invoice_state"/>
                     <field name="date_viatic"/>
                     <field name="user_id"/>
                     <field name="partner_id" />
@@ -192,12 +192,15 @@
                     <separator/>
                     <filter name="open" string="Open" domain="[('state','=', 'open')]"/>
                     <separator/>
+                    <separator/>
+                    <filter name="paid" string="Paid Sales" domain="[('invoice_state','=', 'paid')]"/>
                     <field name="commission_state"/>
                     <filter string="Creator" icon="terp-partner" domain="[]" context="{'group_by':'create_uid'}"/>
                     <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>
                     <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
                     <separator/>
                     <filter string="State" icon="terp-partner" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Invoice State" icon="terp-partner" domain="[]" context="{'group_by':'invoice_state'}"/>
                     <filter string="Commission State" icon="terp-partner" domain="[]" context="{'group_by':'commission_state'}"/>
             </search>
             </field>
