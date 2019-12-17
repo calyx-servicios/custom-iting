@@ -48,10 +48,14 @@
             <field name="arch" type="xml">
                 <form string="Sale Viatic">
                          <header>
-                                <button name="action_cancel" type="object" states="draft,open,close" class="oe_highlight" string="Cancel"/>
+                                <button name="action_cancel" type="object" states="draft" class="oe_highlight" string="Cancel"/>
+                                <button name="action_cancel" type="object" states="open,close" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Cancel"/>
                                 <button name="action_draft" type="object" states="cancel" class="oe_highlight" string="Draft"/>
-                                 <button name="action_set" type="object" states="draft" class="oe_highlight" string="Set"/>
-                                <field name="state" widget="statusbar" clickable="True"/>
+                                <button name="action_set" type="object" states="draft" class="oe_highlight" string="Set"/>
+                                <button name="action_open" type="object" states="draft" class="oe_highlight" groups="sale_viatic.group_viatic_manager" string="open"/>
+                                <button name="action_set" type="object" states="open,close" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Set"/>
+                                <button name="action_close" type="object" states="open" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Close"/>
+                                <field name="state" widget="statusbar" />
                         </header>
 
                     <sheet>
@@ -61,13 +65,13 @@
                               <field name="name" class="oe_inline" readonly="1"/>
                           </h1>
                         </div>
-                         
+
                         <group>
                         <group>
                         <field name="partner_id" />
                          </group>
-                         
-                         <group> 
+
+                         <group>
                         <field name="date_viatic"/>
                         </group>
                         <group>
@@ -94,12 +98,12 @@
                      <group>
                      <field name="cost_total"/>
                      <field name="price_total"/>
-                     <field name="manual_rate"/>
+                     <field name="manual_rate" attrs="{'readonly': [('state', 'in', ('open','close','cancel'))]}"/>
                      </group>
                      <group>
                      <field name="cost_usd_total"/>
                      <field name="price_usd_total"/>
-                     
+
                      </group>
                      </group>
 
@@ -109,7 +113,7 @@
                      <field name="sale_total"/>
                      <field name="sale_cost"/>
                       <field name="gross_profit"/>
-                      
+
                       <field name="tax_amount"/>
                       <field name="fee_amount"/>
                       <field name="net_profit"/>
@@ -143,7 +147,7 @@
                 </form>
             </field>
         </record>
- 
+
       <record model='ir.ui.view' id='sale_viatic_order_tree'>
             <field name="name">sale.viatic.tree</field>
             <field name="model">sale.viatic</field>
@@ -165,7 +169,7 @@
                     <field name="state"/>
                     <field name="sale_total"/>
                       <field name="gross_profit"/>
-                      
+
                       <field name="tax_amount"/>
                       <field name="fee_amount"/>
                       <field name="net_profit"/>
@@ -213,7 +217,7 @@
             <field name="res_model">sale.viatic</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{"search_default_parent_false" : True,}</field>  
+            <field name="context">{"search_default_parent_false" : True,}</field>
             <field name="search_view_id" ref="view_sale_viatic_filter"/>
             <field name="help" type="html">
               <p>
@@ -255,7 +259,7 @@
             <field name="res_model">sale.viatic.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="context">{"search_default_parent_false" : True,}</field>  
+            <field name="context">{"search_default_parent_false" : True,}</field>
             <field name="search_view_id" ref="view_sale_viatic_line_filter"/>
             <field name="help" type="html">
               <p>
@@ -264,8 +268,8 @@
             </field>
          </record>
 
-        
-      
+
+
 
 </data>
 </openerp>

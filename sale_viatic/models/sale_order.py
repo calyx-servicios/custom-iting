@@ -19,23 +19,48 @@ class SaleOrder(models.Model):
 
 
     def set_viatics(self):
-            return {    
+            return {
                 'name': _("Viatics"),
                 'type': 'ir.actions.act_window',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_model': 'sale.viatic.wizard',
                 'target': 'new',
-                
+
             }
-        
- 
+    @api.multi
+    def action_confirm(self):
+        res = super(SaleOrder,self).action_confirm()
+        self.confirm_viatics()
+        return res
+
+    @api.multi
+    def confirm_viatics(self):
+        for order in self:
+            for viatic in order.viatic_ids:
+                if viatic.state=='draft':
+                    viatic.action_open()
+
+    @api.multi
+    def action_cancel(self):
+        res = super(SaleOrder,self).action_cancel()
+        container_res=self.cancel_viatics()
+        return res
+
+    @api.multi
+    def cancel_viatics(self):
+        for order in self:
+            for viatic in order.viatic_ids:
+                if viatic.state=='open':
+                    viatic.action_cancel()
+
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     cost = fields.Float(compute='_product_cost', digits=dp.get_precision('Product Price'), store=True)
-    
+
 
     @api.depends('product_id', 'purchase_price', 'product_uom_qty')
     def _product_cost(self):
@@ -43,5 +68,3 @@ class SaleOrderLine(models.Model):
             currency = line.order_id.pricelist_id.currency_id
             price = line.purchase_price
             line.cost =  price * line.product_uom_qty
-
-

@@ -15,14 +15,14 @@ class SaleViaticLine(models.Model):
         if vals.get('quantity', 0)<=0:
             raise ValidationError(_('Quantity Must be Positive'))
         return super(SaleViaticLine, self).create(vals)
-    
+
     @api.model
     def write(self, vals):
         if vals.get('quantity') and vals.get('quantity')<=0:
             raise ValidationError(_('Quantity Must be Positive'))
         return super(SaleViaticLine, self).write(vals)
 
-   
+
 
     sale_viatic_id = fields.Many2one('sale.viatic', string='Sale Viatic',ondelete='cascade')
     product_id = fields.Many2one('product.product', string='Product', domain=[('viatic_ok', '=', True)], change_default=True, ondelete='restrict', required=True,states={'draft': [('readonly', False)]})
@@ -33,7 +33,7 @@ class SaleViaticLine(models.Model):
     cost_total = fields.Integer(string='Cost Total',compute='_compute_price', readonly=True)
     price_unit = fields.Integer(string='Unit Price',compute='_compute_price',readonly=True)
     price_total = fields.Integer(string='Total Price',compute='_compute_price',readonly=True)
-    company_id = fields.Many2one('res.company', string='Company',  
+    company_id = fields.Many2one('res.company', string='Company',
         default=lambda self: self.env['res.company']._company_default_get('sale.viatic'), readonly=True, related_sudo=False)
     partner_id = fields.Many2one(related='sale_viatic_id.partner_id', string="Partner", readonly=True, store=True)
     user_id = fields.Many2one(related='sale_viatic_id.user_id', string="User", readonly=True, store=True)
@@ -54,6 +54,7 @@ class SaleViatic(models.Model):
     _name = 'sale.viatic'
     _description = 'Sales Viatic'
     _inherit = ['mail.thread']
+    _order = 'id desc'
 
     @api.model
     def _default_partner(self):
@@ -78,7 +79,7 @@ class SaleViatic(models.Model):
         viatic_tax=float(ICPSudo.get_param('sale_viatic.viatic_tax') or 0.0)
         return viatic_tax
 
-        
+
 
     @api.model
     def _default_lines(self):
@@ -98,11 +99,11 @@ class SaleViatic(models.Model):
     line_ids = fields.One2many('sale.viatic.line', 'sale_viatic_id', string='Viatic Lines',states={'draft': [('readonly', False)]},default=_default_lines)
     user_id = fields.Many2one('res.users',  string="User Create", states={'draft': [('readonly', False)]},
         default=lambda self: self.env.user)
-    company_id = fields.Many2one('res.company', string='Company',  
+    company_id = fields.Many2one('res.company', string='Company',
         default=lambda self: self.env['res.company']._company_default_get('sale.viatic'), readonly=True, related_sudo=False)
     state = fields.Selection([('draft', 'Draft'),('open', 'Open'),('close', 'Close'),('cancel', 'Cancel')], string='State',default='draft')
-    note = fields.Text('Terms and conditions',)
-    manual_rate = fields.Float('Manual Rate',)
+    note = fields.Text('Terms and conditions',states={'draft': [('readonly', False)]})
+    manual_rate = fields.Float('Manual Rate',states={'draft': [('readonly', False)]})
     cost_total = fields.Float('Total Cost',compute='_compute_total',readonly=True,store=True)
     cost_usd_total = fields.Float('Total USD Cost',compute='_compute_total',readonly=True,store=True)
     price_total = fields.Float('Total',compute='_compute_total',readonly=True,store=True)
@@ -116,14 +117,14 @@ class SaleViatic(models.Model):
     fee_amount= fields.Float('Fee',compute='_compute_profit',readonly=True,store=True)
     tax_amount= fields.Float('Tax',compute='_compute_profit',readonly=True,store=True)
     net_contribution= fields.Float('Net Contribution',compute='_compute_profit',readonly=True,store=True)
-    viatic_fee= fields.Float('Viatic Fee',default=_get_default_viatic_fee)
-    viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax)
+    viatic_fee= fields.Float('Viatic Fee',default=_get_default_viatic_fee,states={'draft': [('readonly', False)]})
+    viatic_tax= fields.Float('Viatic Tax',default=_get_default_viatic_tax,states={'draft': [('readonly', False)]})
     invoice_ids = fields.Many2many(related='sale_order_id.invoice_ids', string='Invoices')
     invoice_names = fields.Char('Invoice Names',compute='_compute_names',store=True, readonly=True)
     invoice_state = fields.Selection([('paid', 'Paid'),('open', 'Open')],compute='_compute_names',store=True, readonly=True)
     commission_state = fields.Selection([('draft', 'Draft'),('paid', 'Paid'),('cancel', 'Cancel')], string='State',default='draft')
     commission_amount= fields.Float('Comission Amount', compute='_compute_commission', store=True, readonly=True)
-    commission_percentage= fields.Float('Commission Percentage')
+    commission_percentage= fields.Float('Commission Percentage',states={'draft': [('readonly', False)]})
 
     @api.depends('commission_percentage','net_profit')
     def _compute_commission(self):
@@ -146,8 +147,8 @@ class SaleViatic(models.Model):
             else:
                 viatic.invoice_state ='open'
             viatic.invoice_names=names
-            
-                
+
+
 
     @api.depends('sale_order_id.amount_untaxed','sale_order_id','line_ids','viatic_tax','viatic_fee','state','manual_rate','line_ids.quantity','line_ids.markup','line_ids.cost','sale_order_id.amount_cost')
     def _compute_profit(self):
@@ -160,7 +161,7 @@ class SaleViatic(models.Model):
             if viatic.sale_order_id:
                 untaxed_amount=viatic.sale_order_id.amount_untaxed-viatic.sale_order_id.amount_cost
                 gross_profit=untaxed_amount
-                # 
+                #
                 # gross_profit=untaxed_amount-viatic.cost_total
                 fee_amount=untaxed_amount*viatic.viatic_fee/100.0
                 tax_amount=untaxed_amount*viatic.viatic_tax/100.0
@@ -199,7 +200,7 @@ class SaleViatic(models.Model):
             if viatic.state not in ('draft', 'cancel'):
                 raise UserError(_('You cannot delete a viatic which is not draft or cancelled. You should cancel it first.'))
         return super(SaleViatic, self).unlink()
-                    
+
 
     @api.model
     def create(self, vals):
@@ -218,13 +219,31 @@ class SaleViatic(models.Model):
 
     @api.multi
     def action_draft(self):
-        orders = self.filtered(lambda s: s.state in ['cancel'])
-        return orders.write({
+        viatics = self.filtered(lambda s: s.state in ['cancel'])
+        return viatics.write({
             'state': 'draft',
         })
 
+    @api.multi
+    def action_close(self):
+        viatics = self.filtered(lambda s: s.state in ['open'])
+        return viatics.write({
+            'state': 'close',
+        })
 
+    @api.multi
+    def action_cancel(self):
+        viatics = self.filtered(lambda s: s.state in ['open','draft'])
+        return viatics.write({
+            'state': 'cancel',
+        })
 
+    @api.multi
+    def action_open(self):
+        viatics = self.filtered(lambda s: s.state in ['draft'])
+        return viatics.write({
+            'state': 'open',
+        })
 
 
     @api.multi
@@ -237,7 +256,9 @@ class SaleViatic(models.Model):
         if viatic_product_id and not self.env['product.product'].browse(viatic_product_id).exists():
             viatic_product_id = False
             raise UserError(_('The default Viatic product is not defined. Please review the Viatic settings'))
-        
+        if self.sale_order_id and self.sale_order_id.state not in ['draft']:
+            raise UserError(_('The sale order must be in draft state'))
+
         if viatic_product_id:
             for viatic in self:
                 if viatic.pricelist_id and viatic.pricelist_id.currency_id.id!=viatic.company_id.currency_id.id and viatic.manual_rate<=0:
@@ -272,4 +293,3 @@ class SaleViatic(models.Model):
                         'view_id': compose_form_id,
                         'context': {},
                     }
-    
