@@ -33,7 +33,7 @@
 <act_window 
             name="Commission Calculation"
             res_model="sale.viatic.calc.wizard"
-            src_model="sale.viatic"
+            src_model="sale.order"
             view_mode="form"
             groups="sale_viatic.group_viatic_manager"
             target="new"

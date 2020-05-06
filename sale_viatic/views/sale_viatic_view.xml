@@ -93,39 +93,20 @@
                        </tree>
 
                      </field>
-                     <div class="oe_clear"/>
-                     <group>
-                     <group>
-                     <field name="cost_total"/>
-                     <field name="price_total"/>
-                     <field name="manual_rate" attrs="{'readonly': [('state', 'in', ('open','close','cancel'))]}"/>
-                     </group>
-                     <group>
-                     <field name="cost_usd_total"/>
-                     <field name="price_usd_total"/>
+                                     <div class="oe_clear"/>
+                 <group>
+                 <group>
+                 <field name="cost_total"/>
+                 <field name="price_total"/>
+                 <field name="manual_rate" attrs="{'readonly': [('state', 'in', ('open','close','cancel'))]}"/>
+                 </group>
+                 <group>
+                 <field name="cost_usd_total"/>
+                 <field name="price_usd_total"/>
 
-                     </group>
-                     </group>
-
-                    <div class="oe_clear"/>
-                     <group>
-                     <group>
-                     <field name="sale_total"/>
-                     <field name="sale_cost"/>
-                      <field name="gross_profit"/>
-
-                      <field name="tax_amount"/>
-                      <field name="fee_amount"/>
-                      <field name="net_profit"/>
-                      <field name="net_contribution"/>
-                      </group>
-                      <group>
-                     <field name="commission_percentage" readonly="1"/>
-                     <field name="commission_amount" readonly="1"/>
-                      <field name="commission_state" groups="sale_viatic.group_viatic_manager"/>
-                      </group>
-                     </group>
-                     <field name="note" class="oe_inline" placeholder="Terms and conditions..."/>
+                 </group>
+                 </group>
+                     <field name="note" class="oe_inline" placeholder="Terms and conditions..."/> 
                     </page>
                     <page string="Invoices">
                      <field name="invoice_ids" >
@@ -155,8 +136,8 @@
                 <tree string="Sale viatic">
                     <field name="name" />
                     <field name="sale_order_id"/>
-                    <field name="invoice_names"/>
-                    <field name="invoice_state"/>
+<!--                     <field name="invoice_names"/>
+                    <field name="invoice_state"/> -->
                     <field name="date_viatic"/>
                     <field name="user_id"/>
                     <field name="partner_id" />
@@ -167,8 +148,8 @@
                      <field name="cost_usd_total"/>
                      <field name="price_usd_total"/>
                     <field name="state"/>
-                    <field name="sale_total"/>
-                      <field name="gross_profit"/>
+                    <!-- <field name="sale_total"/> -->
+<!--                       <field name="gross_profit"/>
 
                       <field name="tax_amount"/>
                       <field name="fee_amount"/>
@@ -176,7 +157,7 @@
                       <field name="net_contribution"/>
                       <field name="commission_percentage"/>
                       <field name="commission_amount"/>
-                      <field name="commission_state"/>
+                      <field name="commission_state"/> -->
                 </tree>
             </field>
         </record>
@@ -198,14 +179,14 @@
                     <separator/>
                     <separator/>
                     <filter name="paid" string="Paid Sales" domain="[('invoice_state','=', 'paid')]"/>
-                    <field name="commission_state"/>
+<!--                     <field name="commission_state"/> -->
                     <filter string="Creator" icon="terp-partner" domain="[]" context="{'group_by':'create_uid'}"/>
                     <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>
                     <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
                     <separator/>
                     <filter string="State" icon="terp-partner" domain="[]" context="{'group_by':'state'}"/>
-                    <filter string="Invoice State" icon="terp-partner" domain="[]" context="{'group_by':'invoice_state'}"/>
-                    <filter string="Commission State" icon="terp-partner" domain="[]" context="{'group_by':'commission_state'}"/>
+<!--                     <filter string="Invoice State" icon="terp-partner" domain="[]" context="{'group_by':'invoice_state'}"/>
+                    <filter string="Commission State" icon="terp-partner" domain="[]" context="{'group_by':'commission_state'}"/> -->
             </search>
             </field>
         </record>

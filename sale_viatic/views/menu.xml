@@ -2,16 +2,10 @@
 <openerp>
     <data>
 
-        <menuitem id="viatic_menu_root"
-                name="Viatic"
-                web_icon="sale,static/description/icon.png"
-                active="True"
-                sequence="8"/>
-
         <menuitem id="viatic_viatic_menu"
                 name="Viatic"
-                parent="viatic_menu_root"
-                sequence="2"
+                parent="sale.sale_menu_root"
+                sequence="5"
                 
                 />
 
