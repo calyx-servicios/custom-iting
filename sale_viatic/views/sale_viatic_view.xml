@@ -108,16 +108,6 @@
                  </group>
                      <field name="note" class="oe_inline" placeholder="Terms and conditions..."/> 
                     </page>
-                    <page string="Invoices">
-                     <field name="invoice_ids" >
-                       <tree string="Invoices" >
-                          <field name="name" />
-                          <field name="date_invoice"  />
-                          <field name="amount_total"/>
-                           <field name="state"/>
-                       </tree>
-                      </field >
-                    </page>
                     </notebook>
                     </sheet>
                 <div class="oe_chatter">
@@ -136,8 +126,6 @@
                 <tree string="Sale viatic">
                     <field name="name" />
                     <field name="sale_order_id"/>
-<!--                     <field name="invoice_names"/>
-                    <field name="invoice_state"/> -->
                     <field name="date_viatic"/>
                     <field name="user_id"/>
                     <field name="partner_id" />
@@ -148,16 +136,6 @@
                      <field name="cost_usd_total"/>
                      <field name="price_usd_total"/>
                     <field name="state"/>
-                    <!-- <field name="sale_total"/> -->
-<!--                       <field name="gross_profit"/>
-
-                      <field name="tax_amount"/>
-                      <field name="fee_amount"/>
-                      <field name="net_profit"/>
-                      <field name="net_contribution"/>
-                      <field name="commission_percentage"/>
-                      <field name="commission_amount"/>
-                      <field name="commission_state"/> -->
                 </tree>
             </field>
         </record>

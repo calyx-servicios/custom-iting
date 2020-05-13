@@ -22,8 +22,6 @@ class SaleViatic(models.Model):
         active_id = self._context.get('active_id')
         return active_id
 
-
-
     @api.model
     def _default_lines(self):
         product_obj = self.env['product.product']

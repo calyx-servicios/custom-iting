@@ -6,6 +6,7 @@ from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
 from ast import literal_eval
 
+
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
@@ -23,10 +24,11 @@ class SaleOrder(models.Model):
 
     viatic_ids = fields.One2many(
         'sale.viatic', 'sale_order_id', string='Viatic Lines',)
+    commission_ids = fields.One2many(
+        'sale.commission', 'sale_order_id', string='Commission Lines',)
     amount_cost = fields.Monetary(compute='_sale_cost', help="It gives total cost.",
                                   currency_field='currency_id', digits=dp.get_precision('Product Price'), store=True)
 
-    # viene de vitics
     net_profit = fields.Float(
         'Net Profit', compute='_compute_profit', readonly=True, store=True)
     gross_profit = fields.Float(
@@ -40,41 +42,12 @@ class SaleOrder(models.Model):
     viatic_fee = fields.Float('Viatic Fee', default=_get_default_viatic_fee, states={
                               'draft': [('readonly', False)]})
     viatic_tax = fields.Float('Viatic Tax', default=_get_default_viatic_tax, states={
-                              'draft': [('readonly', False)]})    
-
-    #esto se borra pero se tiene que tener en cuenta al mover lo otro a ventas
-    # pricelist_id = fields.Many2one(
-    #     related='sale_order_id.pricelist_id', string='Pricelist', readonly=True)
-    # currency_id = fields.Many2one(
-    #     related='sale_order_id.currency_id', string="Currency", readonly=True)
-    # sale_total = fields.Monetary(
-    #     related='sale_order_id.amount_untaxed', string="Sale Amount", readonly=True, store=True)
-    # sale_cost = fields.Monetary(related='sale_order_id.amount_cost',
-    #                             string="Sale Cost Amount", readonly=True, store=True)
-
-        #esto se va ventas
+                              'draft': [('readonly', False)]})
     invoice_names = fields.Char(
         'Invoice Names', compute='_compute_names', store=True, readonly=True)
     invoice_state = fields.Selection(
         [('paid', 'Paid'), ('open', 'Open')], compute='_compute_names', store=True, readonly=True)
-    commission_state = fields.Selection(
-        [('draft', 'Draft'), ('paid', 'Paid'), ('cancel', 'Cancel')], string='State', default='draft')
-    commission_amount = fields.Float(
-        'Comission Amount', compute='_compute_commission', store=True, readonly=True)
-    commission_percentage = fields.Float('Commission Percentage', states={
-                                         'draft': [('readonly', False)]})
 
-
-
-    #sto se va a ventas
-    @api.depends('commission_percentage', 'net_profit')
-    def _compute_commission(self):
-        res = {}
-        for line in self:
-            line.commission_amount = round(
-                line.commission_percentage * line.net_profit / 100.0, 2)
-
-    #sto se va a ventas
     @api.depends('invoice_ids', 'invoice_ids.state')
     def _compute_names(self):
         for order in self:
@@ -92,7 +65,6 @@ class SaleOrder(models.Model):
                     viatic.invoice_state = 'open'
                 viatic.invoice_names = names
 
-    #sto se va a ventas
     @api.depends('amount_untaxed', 'viatic_tax', 'viatic_fee', 'state', 'viatic_ids', 'order_line', 'amount_cost')
     def _compute_profit(self):
         for viatic in self:
@@ -125,7 +97,6 @@ class SaleOrder(models.Model):
             order.amount_cost = sum(order.order_line.filtered(
                 lambda r: r.state != 'cancel').mapped('cost'))
 
-
     def set_viatics(self):
         return {
             'name': _("Viatics"),
@@ -138,9 +109,18 @@ class SaleOrder(models.Model):
         }
 
     @api.multi
+    def set_commisions(self):
+        vals = {
+            'sale_order_id': self.id,
+            'commission_state': 'draft',
+        }
+        self.env['sale.commission'].create(vals)
+
+    @api.multi
     def action_confirm(self):
         res = super(SaleOrder, self).action_confirm()
         self.confirm_viatics()
+        self.set_commisions()
         return res
 
     @api.multi
@@ -153,7 +133,7 @@ class SaleOrder(models.Model):
     @api.multi
     def action_cancel(self):
         res = super(SaleOrder, self).action_cancel()
-        container_res = self.cancel_viatics()
+        self.cancel_viatics()
         return res
 
     @api.multi
@@ -173,6 +153,6 @@ class SaleOrderLine(models.Model):
     @api.depends('product_id', 'purchase_price', 'product_uom_qty')
     def _product_cost(self):
         for line in self:
-            currency = line.order_id.pricelist_id.currency_id
+            #currency = line.order_id.pricelist_id.currency_id
             price = line.purchase_price
             line.cost = price * line.product_uom_qty

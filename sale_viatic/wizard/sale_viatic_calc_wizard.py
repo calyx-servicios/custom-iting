@@ -12,9 +12,11 @@ class SaleViaticCalcWizardLine(models.TransientModel):
 
     wizard_id = fields.Many2one('sale.viatic.calc.wizard', string='Wizard')
 
-    sale_viatic_id = fields.Many2one(
-        'sale.viatic', string='viatic', readonly=True)
-    viatic_id = fields.Integer('Viatic ID', readonly=True)
+    sale_order_id = fields.Many2one(
+        'sale.order', string='Sale Order', readonly=True)
+    order_id = fields.Integer()
+    salesman_id = fields.Many2one(
+        related='sale_order_id.user_id', store=True, string='Salesperson', readonly=True)
     net_profit = fields.Float('Net Profit', readonly=True)
     commission_percentage = fields.Float('Commission Percentage',)
     commission_amount = fields.Float(
@@ -41,32 +43,28 @@ class SaleViaticCalcWizard(models.TransientModel):
     def _default_lines(self):
         _logger.debug('========get default lines====== %r',
                       self._context.get('active_ids'))
-        #viatic_obj = self.env['sale.viatic']
         lines = []
-        # vitatics = []
-        # for so in self.env['sale.order'].browse(self._context.get('active_ids')):
-        #     vitatics.add 
         for order in self.env['sale.order'].browse(self._context.get('active_ids')):
             full_paid = False
-            for viatic in order.viatic_ids:
-                if viatic.invoice_ids and len(viatic.invoice_ids) > 0:
-                    full_paid = True
-                for invoice in viatic.invoice_ids:
-                    if invoice.state not in ['paid', 'open', 'draft']:
-                        full_paid = False
-                state = 'unpayable'
-                if order.invoice_state in ['paid']:
-                    state = 'payable'
-                if full_paid:
-                    lines.append({
-                        'sale_viatic_id': viatic.id,
-                        'viatic_id': viatic.id,
-                        'net_profit': order.net_profit,
-                        'commission_percentage': order.commission_percentage,
-                        'commission_state': order.commission_state,
-                        'commission_amount': order.commission_amount,
-                        'state': state
-                    })
+            state = 'payable'
+            if order.invoice_ids and len(order.invoice_ids) > 0:
+                full_paid = True
+            for invoice in order.invoice_ids:
+                if invoice.state not in ['paid', 'open', 'draft']:
+                    full_paid = False
+                if invoice.state not in ['paid']:
+                    state = 'unpayable'
+            if full_paid and :
+                lines.append({
+                    'sale_order_id': order.id,
+                    'order_id': order.id,
+                    'salesman_id': order.commission_ids[0].salesman_id,
+                    'net_profit': order.net_profit,
+                    'commission_percentage': order.commission_ids[0].commission_percentage,
+                    'commission_state': order.commission_ids[0].commission_state,
+                    'commission_amount': order.commission_ids[0].commission_amount,
+                    'state': state
+                })
         if len(lines) > 0:
             return lines
         else:
@@ -88,24 +86,25 @@ class SaleViaticCalcWizard(models.TransientModel):
         self.commission_amount = round(total, 2)
 
     @api.multi
-    def set_viatic(self):
-        viatic_obj = self.env['sale.viatic']
-        for wiz in self:
-            for viatic in wiz.line_ids:
-                _viatic = viatic_obj.browse(viatic.viatic_id)
-                _logger.debug('===>%r', _viatic.name)
-                _viatic.sale_order_id.commission_percentage = viatic.commission_percentage
+    def set_commission(self):
+        order_obj = self.env['sale.order']
+        for line in self.line_ids:
+            order = order_obj.browse(line.order_id)
+            order.commission_ids[
+                0].commission_percentage = line.commission_percentage
         return {}
 
     @api.multi
-    def set_viatic_and_pay(self):
-        viatic_obj = self.env['sale.viatic']
-        for wiz in self:
-            for viatic in wiz.line_ids:
-                viatic_obj = self.env['sale.viatic']
-                _viatic = viatic_obj.browse(viatic.viatic_id)
-                _logger.debug('===>%r', _viatic.name)
-                _viatic.sale_order_id.commission_percentage = viatic.commission_percentage
-                if _viatic.sale_order_id.invoice_state in ['paid']:
-                    _viatic.sale_order_id.commission_state = 'paid'
+    def set_commission_and_pay(self):
+        order_obj = self.env['sale.order']
+        for line in self.line_ids:
+            order = order_obj.browse(line.order_id)
+            order.commission_ids[
+                0].commission_percentage = line.commission_percentage
+            state = 'payable'
+            for invoice in order.invoice_ids:
+                if invoice.state not in ['paid']:
+                    state = 'unpayable'
+            if state in ['payable']:
+                order.commission_ids[0].commission_state = 'paid'
         return {}

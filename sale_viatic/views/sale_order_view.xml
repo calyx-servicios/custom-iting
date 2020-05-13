@@ -25,23 +25,13 @@
                       <field name="cost_usd_total"/>
                       <field name="price_usd_total"/>
                       <field name="state"/>
-
-<!--                       <field name="gross_profit"/>
-                      <field name="tax_amount"/>
-                      <field name="fee_amount"/>
-                      <field name="net_profit"/>
-                      <field name="net_contribution"/> -->
                       </tree>
                     </field>
                </page>
 
-
-               <page  name="sale_comissions_page" string="Comissions" groups="sale_viatic.sale_viatic_user_group">
+              <page  name="sale_result_page" string="Sale Results" groups="sale_viatic.sale_viatic_user_group">
   
-
-
                 <div class="oe_clear"/>
-                 <group>
                  <group>
                  <field name="amount_untaxed"/>
                  <field name="amount_cost"/>
@@ -52,13 +42,24 @@
                   <field name="net_profit"/>
                   <field name="net_contribution"/>
                   </group>
-                  <group>
-                 <field name="commission_percentage" readonly="1"/>
+               </page>
+               <page  name="sale_comissions_page" string="Comissions" groups="sale_viatic.sale_viatic_user_group">
+  
+
+
+                <div class="oe_clear"/>
+
+                  <field name="commission_ids" context="{'active_id': active_id}">
+                      <tree create="false" >
+                
+                  <field name="sale_order_id" readonly="1"/>
+                  <field name="salesman_id" readonly="1"/>
+                  <field name="net_profit" readonly="1"/>
+                  <field name="commission_percentage" readonly="1"/>
                  <field name="commission_amount" readonly="1"/>
                   <field name="commission_state" groups="sale_viatic.group_viatic_manager"/>
-                  </group>
-                 </group>
-
+                      </tree>
+                    </field>
                    
                </page>
 

@@ -8,3 +8,4 @@ from . import viatic_line
 from . import sale_viatic
 from . import sale_order
 from . import res_config_settings
+from . import sale_commission

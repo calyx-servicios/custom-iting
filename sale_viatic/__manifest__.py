@@ -22,6 +22,7 @@
         'views/sale_order_view.xml',
         'views/product_view.xml',
         'views/sale_viatic_view.xml',
+        'views/sale_commission_view.xml',
         'views/menu.xml',
         'views/res_config_settings_views.xml',
     ],
