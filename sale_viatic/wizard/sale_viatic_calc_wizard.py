@@ -54,7 +54,7 @@ class SaleViaticCalcWizard(models.TransientModel):
                     full_paid = False
                 if invoice.state not in ['paid']:
                     state = 'unpayable'
-            if full_paid and :
+            if full_paid:
                 lines.append({
                     'sale_order_id': order.id,
                     'order_id': order.id,
