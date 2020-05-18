@@ -46,6 +46,7 @@ class SaleViaticCalcWizard(models.TransientModel):
         lines = []
         for order in self.env['sale.order'].browse(self._context.get('active_ids')):
             full_paid = False
+            order.set_commisions()
             state = 'payable'
             if order.invoice_ids and len(order.invoice_ids) > 0:
                 full_paid = True
@@ -54,6 +55,8 @@ class SaleViaticCalcWizard(models.TransientModel):
                     full_paid = False
                 if invoice.state not in ['paid']:
                     state = 'unpayable'
+            if order.commission_ids[0].commission_state in ['paid'] or order.amount_cost ==0.0:
+                state = 'unpayable'
             if full_paid:
                 lines.append({
                     'sale_order_id': order.id,
@@ -90,8 +93,13 @@ class SaleViaticCalcWizard(models.TransientModel):
         order_obj = self.env['sale.order']
         for line in self.line_ids:
             order = order_obj.browse(line.order_id)
-            order.commission_ids[
-                0].commission_percentage = line.commission_percentage
+            state = 'payable'
+            for invoice in order.invoice_ids:
+                if invoice.state not in ['paid']:
+                    state = 'unpayable'
+            if state in ['payable']:
+                order.commission_ids[
+                    0].commission_percentage = line.commission_percentage
         return {}
 
     @api.multi
@@ -99,12 +107,12 @@ class SaleViaticCalcWizard(models.TransientModel):
         order_obj = self.env['sale.order']
         for line in self.line_ids:
             order = order_obj.browse(line.order_id)
-            order.commission_ids[
-                0].commission_percentage = line.commission_percentage
             state = 'payable'
             for invoice in order.invoice_ids:
                 if invoice.state not in ['paid']:
                     state = 'unpayable'
             if state in ['payable']:
                 order.commission_ids[0].commission_state = 'paid'
+                order.commission_ids[
+                    0].commission_percentage = line.commission_percentage
         return {}

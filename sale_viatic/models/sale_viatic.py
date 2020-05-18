@@ -126,7 +126,7 @@ class SaleViatic(models.Model):
 
     @api.multi
     def action_cancel(self):
-        viatics = self.filtered(lambda s: s.state in ['open', 'draft'])
+        viatics = self.filtered(lambda s: s.state in ['open', 'draft', 'close'])
         return viatics.write({
             'state': 'cancel',
         })
@@ -140,7 +140,6 @@ class SaleViatic(models.Model):
 
     @api.multi
     def action_set(self):
-        self.ensure_one()
         ir_model_data = self.env['ir.model.data']
         ICPSudo = self.env['ir.config_parameter'].sudo()
         line_obj = self.env['sale.order.line']

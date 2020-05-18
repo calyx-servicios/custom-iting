@@ -106,7 +106,7 @@ class SaleViaticWizard(models.TransientModel):
                 open_viatic = False
                 for line in wiz.line_ids:
                     if line.line_id and line.line_id.sale_viatic_id.state == 'draft':
-                        open_viatic = line.line_id.sale_viatic_id.id
+                        open_viatic = line.line_id.sale_viatic_id
 
                 for line in wiz.line_ids:
                     if line.line_id:
@@ -131,5 +131,6 @@ class SaleViaticWizard(models.TransientModel):
                                 'partner_id': wiz.order_id.partner_id.id
                             }
                             line_obj.create(line_vals)
-        open_viatic.action_set()
-        open_viatic.action_open()
+
+                open_viatic.action_set()
+                open_viatic.action_open()

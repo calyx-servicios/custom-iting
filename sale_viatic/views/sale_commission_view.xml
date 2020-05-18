@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree string="Sale commission">
                     <field name="sale_order_id" readonly="1"/>
-                    <field name="salesman_id" readonly="1"/>
+                    <field name="user_id" readonly="1"/>
                   <field name="net_profit" readonly="1"/>
                   <field name="commission_percentage" readonly="1"/>
                  <field name="commission_amount" readonly="1"/>
@@ -17,11 +17,36 @@
             </field>
         </record>
 
+        <record model='ir.ui.view' id='sale_commission_order_form'>
+            <field name="name">sale.commission.order.form</field>
+            <field name="model">sale.commission</field>
+            <field name="arch" type="xml">
+                <form string="Sale Viatic">
+                         <header>
+                                <button name="action_cancel" type="object" commission_state="paid,draft" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Cancel"/>
+                                <button name="action_draft" type="object" commission_state="cancel" class="oe_highlight" string="Draft"/>
+                                <button name="action_paid" type="object" commission_state="draft" class="oe_highlight" string="Paid"/>
+                                <field name="commission_state" widget="statusbar" />
+                        </header>
+                    <sheet>
+                        <group>
+                          <field name="sale_order_id" readonly="1"/>
+                          <field name="user_id" readonly="1"/>
+                          <field name="net_profit" readonly="1"/>
+                          <field name="commission_percentage" readonly="1"/>
+                          <field name="commission_amount" readonly="1"/>                       
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id='sale_commission_act' model='ir.actions.act_window'>
             <field name="name">Sale commission Line</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.commission</field>
-            <field name="view_mode">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
             <field name="context">{"search_default_parent_false" : True,}</field>
             <field name="help" type="html">
               <p>

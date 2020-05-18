@@ -26,7 +26,7 @@ class SaleCommission(models.Model):
         'Comission Amount', compute='_compute_commission', store=True, readonly=True)
     commission_percentage = fields.Float('Commission Percentage', states={
                                          'draft': [('readonly', False)]})
-    salesman_id = fields.Many2one(
+    user_id = fields.Many2one(
         related='sale_order_id.user_id', store=True, string='Salesperson', readonly=True)
 
     @api.depends('commission_percentage', 'sale_order_id.net_profit')

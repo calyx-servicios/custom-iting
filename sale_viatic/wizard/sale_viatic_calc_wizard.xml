@@ -13,8 +13,9 @@
                                 <field name="sale_order_id" readonly="1"/>
                                 <field name="salesman_id" readonly="1"/>
                                 <field name="net_profit" readonly="1"/>
-                                <field name="commission_percentage"/>
+                                <field name="commission_percentage" attrs="{'readonly': [('state', 'not in', ['payable'])]}"/>
                                 <field name="commission_amount" readonly="1"/>
+                                <field name="commission_state" readonly="1"/>
                                 <field name="state" readonly="1"/>
                         </tree>
                         </field>
