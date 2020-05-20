@@ -24,8 +24,8 @@
                 <form string="Sale Viatic">
                          <header>
                                 <button name="action_cancel" type="object" commission_state="paid,draft" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Cancel"/>
-                                <button name="action_draft" type="object" commission_state="cancel" class="oe_highlight" string="Draft"/>
-                                <button name="action_paid" type="object" commission_state="draft" class="oe_highlight" string="Paid"/>
+                                <button name="action_draft" type="object" commission_state="cancel" class="oe_highlight" string="Draft" groups="sale_viatic.group_viatic_manager"/>
+                                <button name="action_paid" type="object" commission_state="draft" class="oe_highlight" string="Paid" groups="sale_viatic.group_viatic_manager"/>
                                 <field name="commission_state" widget="statusbar" />
                         </header>
                     <sheet>

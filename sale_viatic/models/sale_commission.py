@@ -35,3 +35,18 @@ class SaleCommission(models.Model):
         for line in self:
             line.commission_amount = round(
                 line.commission_percentage * self.sale_order_id.net_profit / 100.0, 2)
+
+    @api.multi
+    def action_cancel(self):
+        for line in self:
+            line.commission_state = "cancel"
+
+    @api.multi
+    def action_draft(self):
+        for line in self:
+            line.commission_state = "draft"
+
+    @api.multi
+    def action_paid(self):
+        for line in self:
+            line.commission_state = "paid"
