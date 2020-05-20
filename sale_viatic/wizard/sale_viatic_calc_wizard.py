@@ -61,7 +61,7 @@ class SaleViaticCalcWizard(models.TransientModel):
                 lines.append({
                     'sale_order_id': order.id,
                     'order_id': order.id,
-                    'user_id': order.commission_ids[0].salesman_id,
+                    'salesman_id': order.commission_ids[0].user_id,
                     'net_profit': order.net_profit,
                     'commission_percentage': order.commission_ids[0].commission_percentage,
                     'commission_state': order.commission_ids[0].commission_state,
