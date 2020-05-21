@@ -74,9 +74,7 @@
                          <group>
                         <field name="date_viatic"/>
                         </group>
-                        <group>
-                        <field name="sale_order_id" attrs="{'readonly': [('state', 'in', ('open','close','cancel'))]}"/>
-                         </group>
+                       
                         </group>
                     <notebook>
                     <page string="Products">
