@@ -62,7 +62,7 @@ class SaleViaticCalcWizard(models.TransientModel):
                     'sale_order_id': order.id,
                     'order_id': order.id,
                     'salesman_id': order.commission_ids[0].user_id,
-                    'net_profit': order.net_profit,
+                    'net_profit': order .net_profit,
                     'commission_percentage': order.commission_ids[0].commission_percentage,
                     'commission_state': order.commission_ids[0].commission_state,
                     'commission_amount': order.commission_ids[0].commission_amount,
@@ -97,7 +97,7 @@ class SaleViaticCalcWizard(models.TransientModel):
             for invoice in order.invoice_ids:
                 if invoice.state not in ['paid']:
                     state = 'unpayable'
-            if state in ['payable']:
+            if state in ['payable'] and order.amount_cost != 0.0:
                 order.commission_ids[
                     0].commission_percentage = line.commission_percentage
         return {}
@@ -111,7 +111,7 @@ class SaleViaticCalcWizard(models.TransientModel):
             for invoice in order.invoice_ids:
                 if invoice.state not in ['paid']:
                     state = 'unpayable'
-            if state in ['payable']:
+            if state in ['payable'] and order.amount_cost != 0.0:
                 order.commission_ids[0].commission_state = 'paid'
                 order.commission_ids[
                     0].commission_percentage = line.commission_percentage

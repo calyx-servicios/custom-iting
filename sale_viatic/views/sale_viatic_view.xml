@@ -48,12 +48,9 @@
             <field name="arch" type="xml">
                 <form string="Sale Viatic">
                          <header>
-                                <button name="action_cancel" type="object" states="draft" class="oe_highlight" string="Cancel"/>
-                                <button name="action_cancel" type="object" states="open,close" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Cancel"/>
+                                <button name="action_cancel" type="object" states="open,close" class="oe_highlight" string="Cancel"/>
                                 <button name="action_draft" type="object" states="cancel" class="oe_highlight" string="Draft"/>
-                                <!-- <button name="action_set" type="object" states="draft" class="oe_highlight" string="Set"/> -->
                                 <button name="action_open" type="object" states="draft" class="oe_highlight" groups="sale_viatic.group_viatic_manager" string="open"/>
-<!--                                 <button name="action_set" type="object" states="open,close" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Set"/> -->
                                 <button name="action_close" type="object" states="open" groups="sale_viatic.group_viatic_manager" class="oe_highlight" string="Close"/>
                                 <field name="state" widget="statusbar" />
                         </header>

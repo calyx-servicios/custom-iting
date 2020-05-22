@@ -24,21 +24,6 @@
                       </tree>
                     </field>
                </page>
-
-              <page  name="sale_result_page" string="Sale Results" groups="sale_viatic.sale_viatic_user_group">
-  
-                <div class="oe_clear"/>
-                 <group>
-                 <field name="amount_untaxed"/>
-                 <field name="amount_cost"/>
-                  <field name="gross_profit"/>
-
-                  <field name="tax_amount"/>
-                  <field name="fee_amount"/>
-                  <field name="net_profit"/>
-                  <field name="net_contribution"/>
-                  </group>
-               </page>
                <page  name="sale_comissions_page" string="Comissions" groups="sale_viatic.sale_viatic_user_group">
   
 
@@ -56,6 +41,21 @@
                       </tree>
                     </field>
                    
+               </page>
+
+              <page  name="sale_result_page" string="Sale Results" groups="sale_viatic.sale_viatic_user_group">
+  
+                <div class="oe_clear"/>
+                 <group>
+                 <field name="amount_untaxed"/>
+                 <field name="amount_cost"/>
+                  <field name="gross_profit"/>
+
+                  <field name="tax_amount"/>
+                  <field name="fee_amount"/>
+                  <field name="net_profit"/>
+                  <field name="net_contribution"/>
+                  </group>
                </page>
 
             </xpath>

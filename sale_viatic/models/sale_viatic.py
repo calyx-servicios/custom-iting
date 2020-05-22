@@ -22,15 +22,15 @@ class SaleViatic(models.Model):
         active_id = self._context.get('active_id')
         return active_id
 
-    @api.model
-    def _default_lines(self):
-        product_obj = self.env['product.product']
-        lines = []
-        for product in product_obj.search([('viatic_ok', '=', True)]):
-            lines.append({'product_id': product.id,
-                          'quantity': 0,
-                          })
-        return lines
+    # @api.model
+    # def _default_lines(self):
+    #     product_obj = self.env['product.product']
+    #     lines = []
+    #     for product in product_obj.search([('viatic_ok', '=', True)]):
+    #         lines.append({'product_id': product.id,
+    #                       'quantity': 0,
+    #                       })
+    #     return lines
 
     name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True, states={
                        'draft': [('readonly', False)]}, index=True, default=lambda self: _('New'))
@@ -42,7 +42,7 @@ class SaleViatic(models.Model):
     partner_id = fields.Many2one(
         related='sale_order_id.partner_id', string="Partner", readonly=True, store=True)
     line_ids = fields.One2many('sale.viatic.line', 'sale_viatic_id', string='Viatic Lines', states={
-                               'draft': [('readonly', False)]}, default=_default_lines)
+                               'draft': [('readonly', False)]})
     user_id = fields.Many2one('res.users',  string="User Create", states={'draft': [('readonly', False)]},
                               default=lambda self: self.env.user)
     company_id = fields.Many2one('res.company', string='Company',
@@ -108,6 +108,9 @@ class SaleViatic(models.Model):
             else:
                 vals['name'] = self.env['ir.sequence'].next_by_code(
                     'sale.viatic') or _('New')
+        if len(self.env['sale.order'].browse(vals.get('sale_order_id')).viatic_ids) > 0:
+            raise UserError(
+                    _('You cannot create more than one line of viatico.'))
         return super(SaleViatic, self).create(vals)
 
     @api.multi
