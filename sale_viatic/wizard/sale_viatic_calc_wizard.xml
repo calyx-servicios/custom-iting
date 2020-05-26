@@ -10,10 +10,12 @@
                     <page name="viatics_page" string="Lines">
                         <field name="line_ids" >
                         <tree editable="bottom" create="false" >
-                                <field name="sale_viatic_id" readonly="1"/>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="salesman_id" readonly="1"/>
                                 <field name="net_profit" readonly="1"/>
-                                <field name="commission_percentage"/>
+                                <field name="commission_percentage" attrs="{'readonly': [('state', 'not in', ['payable'])]}"/>
                                 <field name="commission_amount" readonly="1"/>
+                                <field name="commission_state" readonly="1"/>
                                 <field name="state" readonly="1"/>
                         </tree>
                         </field>
@@ -23,8 +25,8 @@
                     <field name="commission_amount" readonly="1"/>
                 </group>
                 <footer>
-                <button name='set_viatic' string='Set'  class='oe_highlight' type='object'/>
-                <button name='set_viatic_and_pay' string='Set and Pay'  class='oe_highlight' type='object'/>
+                <button name='set_commission' string='Set'  class='oe_highlight' type='object'/>
+                <button name='set_commission_and_pay' string='Set and Pay'  class='oe_highlight' type='object'/>
                 </footer>
             </form>
         </field>
@@ -33,7 +35,7 @@
 <act_window 
             name="Commission Calculation"
             res_model="sale.viatic.calc.wizard"
-            src_model="sale.viatic"
+            src_model="sale.order"
             view_mode="form"
             groups="sale_viatic.group_viatic_manager"
             target="new"
