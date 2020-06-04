@@ -57,7 +57,7 @@
 
 
         <menuitem id="sale_commission_menu"
-                parent="sale_viatic.viatic_viatic_menu"
+                parent="sale_viatic.viatic_viatic_menu_root"
                 action="sale_viatic.sale_commission_act"
                 sequence="10" groups="sales_team.group_sale_salesman"/>
 
