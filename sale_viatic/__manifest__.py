@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Sale Viatics",
+    'name': "Viatics and Commissions",
     'summary': """
-        Sales Viatics """,
+        Viatics and Commissions """,
 
     'description': """
         
