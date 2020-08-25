@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-04 20:21+0000\n"
-"PO-Revision-Date: 2020-06-04 20:21+0000\n"
+"POT-Creation-Date: 2020-08-25 01:40+0000\n"
+"PO-Revision-Date: 2020-08-25 01:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Costo"
 #. module: sale_viatic
 #: model:ir.module.category,description:sale_viatic.sale_viatic_category
 msgid "Base Category for Sale viatic"
-msgstr "Cateogria"
+msgstr "Categoría"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_product_product_viatic_ok
@@ -60,7 +60,7 @@ msgstr "Cerrar"
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_commission_amount
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_line_commission_amount
 msgid "Comission Amount"
-msgstr "Monto de Comision"
+msgstr "Monto de Comisión"
 
 #. module: sale_viatic
 #: model:ir.ui.view,arch_db:sale_viatic.viatic_sale_order_form_inherit
@@ -75,13 +75,13 @@ msgstr "Calculo de Comision"
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_order_commission_ids
 msgid "Commission Lines"
-msgstr "Commission Lines"
+msgstr "Líneas de Comisión"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_commission_commission_percentage
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_line_commission_percentage
 msgid "Commission Percentage"
-msgstr "Porcentaje de Comision"
+msgstr "Porcentaje de Comisión"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_company_id
@@ -144,6 +144,31 @@ msgstr "% Por defecto Fee"
 #: model:ir.model.fields,help:sale_viatic.field_res_config_settings_viatic_tax
 msgid "Default Tax for Viatics"
 msgstr "% Por defecto Impuestos"
+
+#. module: sale_viatic
+#: model:ir.ui.view,arch_db:sale_viatic.res_config_settings_view_form
+msgid "Default Viatic Fee"
+msgstr "Fee Predeterminado de Viáticos"
+
+#. module: sale_viatic
+#: model:ir.ui.view,arch_db:sale_viatic.res_config_settings_view_form
+msgid "Default Viatic Fee to use as base calculation in Sales."
+msgstr "Valor de Fee base para su cálculo en Ventas."
+
+#. module: sale_viatic
+#: model:ir.ui.view,arch_db:sale_viatic.res_config_settings_view_form
+msgid "Default Viatic Product"
+msgstr "Producto Predeterminado de Viáticos"
+
+#. module: sale_viatic
+#: model:ir.ui.view,arch_db:sale_viatic.res_config_settings_view_form
+msgid "Default Viatic Tax"
+msgstr "Impuesto Predeterminado de Viáticos"
+
+#. module: sale_viatic
+#: model:ir.ui.view,arch_db:sale_viatic.res_config_settings_view_form
+msgid "Default Viatic Tax to use as base calculation in Sales."
+msgstr "Valor de Tax base para su cálculo en Ventas."
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_commission_display_name
@@ -300,7 +325,7 @@ msgstr "Nuevo"
 #: selection:sale.viatic.line,state:0
 #: selection:sale.viatic.wizard.line,state:0
 msgid "Open"
-msgstr "Abierto"
+msgstr "Abierta"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_calc_wizard_line_order_id
@@ -357,6 +382,11 @@ msgstr "Producto"
 #: model:ir.model,name:sale_viatic.model_product_template
 msgid "Product Template"
 msgstr "Plantilla de producto"
+
+#. module: sale_viatic
+#: model:ir.ui.view,arch_db:sale_viatic.res_config_settings_view_form
+msgid "Product used for Viatic"
+msgstr "Producto usado para Viáticos"
 
 #. module: sale_viatic
 #: model:ir.ui.view,arch_db:sale_viatic.sale_viatic_form
@@ -530,7 +560,7 @@ msgstr "Estado"
 #: model:ir.model.fields,field_description:sale_viatic.field_res_config_settings_viatic_tax
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_order_tax_amount
 msgid "Tax"
-msgstr "Impuesto"
+msgstr "Impuestos"
 
 #. module: sale_viatic
 #: model:ir.model.fields,field_description:sale_viatic.field_sale_viatic_note
