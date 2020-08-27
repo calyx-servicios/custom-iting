@@ -11,32 +11,37 @@
                     <h2>Viatics</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <label for="viatic_product"/>
-                            </div>
                             <div class="o_setting_right_pane">
-                                <field name="viatic_product"/>
+                                <label string="Default Viatic Fee"/>
+                                <div class="text-muted">
+                                    Default Viatic Fee to use as base calculation in Sales.
+                                </div>
+                                <div class="text-muted">
+                                    <field name="viatic_fee"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <field name="viatic_fee"/>
-                            </div>
                             <div class="o_setting_right_pane">
-                                <label for="viatic_fee"/>
+                                <label string="Default Viatic Tax"/>
+                                <div class="text-muted">
+                                    Default Viatic Tax to use as base calculation in Sales.
+                                </div>
+                                <div class="text-muted">
+                                    <field name="viatic_tax"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <field name="viatic_tax"/>
-                            </div>
+                            <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
-                                
-                                <label for="viatic_tax"/>
+                                <label string="Default Viatic Product"/>
+                                <div class="text-muted">
+                                    Product used for Viatic
+                                </div>
+                                <div class="text-muted">
+                                    <field name="viatic_product"/>
+                                </div>
                             </div>
                         </div>
                     </div>

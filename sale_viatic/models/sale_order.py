@@ -79,8 +79,8 @@ class SaleOrder(models.Model):
                 gross_profit = untaxed_amount
                 #
                 # gross_profit=untaxed_amount-viatic.cost_total
-                fee_amount = untaxed_amount * viatic.viatic_fee / 100.0
-                tax_amount = untaxed_amount * viatic.viatic_tax / 100.0
+                fee_amount = viatic.amount_untaxed * viatic.viatic_fee / 100.0
+                tax_amount = viatic.amount_untaxed * viatic.viatic_tax / 100.0
                 net_profit = gross_profit - fee_amount - tax_amount
                 if viatic.amount_untaxed != 0:
                     net_contribution = (
