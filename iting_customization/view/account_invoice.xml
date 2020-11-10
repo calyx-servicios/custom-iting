@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_invoice_form" model="ir.ui.view">
+        <field name="name">iting_customization.account_invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="l10n_ar_account.view_invoice_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='computed_currency_rate']" position="attributes">
+            <attribute name="attrs">{'invisible':True}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='user_id']" position="replace">
+            <field name="user_id" string="Responsible"/>
+            <field name="salesman_id" string="salesman"/>
+            
+        </xpath>
+        </field>
+        
+</record>
+
+
+<record id="invoice_supplier_form_iting" model="ir.ui.view">
+        <field name="name">iting_customization.account_invoice_supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='user_id']" position="replace"/>
+        <xpath expr="//field[@name='reference']" position="after">
+            <field name="user_id" string="Responsible"/>
+            <field name="salesman_id" string="salesman"/>
+        </xpath>
+        </field>
+        
+</record>
+
+
+
+  
+<record id="sale_order_form_view_iting" model="ir.ui.view">
+    <field name="model">sale.order</field>
+    <field name="name">sale.order.form</field>
+    <field name="inherit_id" ref="sale.view_order_form" />
+    <field name="arch" type="xml">
+    <xpath expr="//field[@name='user_id']" position="replace"/>
+    <xpath expr="//field[@name='payment_term_id']" position="after">
+            <field name="user_id" string="Responsible"/>
+            <field name="salesman_id" string="salesman"/>
+        </xpath>        
+    </field>
+</record>
+ 
+<record id="purchase_order_form_view_iting" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="name">purchase.order.form</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='currency_id']" position="after">
+            <field name="user_id" string="Responsible"/>
+            <field name="salesman_id" string="salesman"/>
+            
+        </xpath>
+        </field>
+    </record>
+</odoo>
