@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* iting_customization
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-02 15:53+0000\n"
+"PO-Revision-Date: 2019-10-02 15:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: iting_customization
+#: code:addons/iting_customization/models/account_invoice.py:62
+#, python-format
+msgid "Currency Rate must be defined "
+msgstr "Debe definir la Tasa"
+
+#. module: iting_customization
+#: model:ir.model,name:iting_customization.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: iting_customization
+#: model:ir.model,name:iting_customization.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: iting_customization
+#: model:ir.model,name:iting_customization.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: iting_customization
+#: model:ir.model.fields,field_description:iting_customization.field_purchase_order_user_id
+#: model:ir.ui.view,arch_db:iting_customization.invoice_supplier_form_iting
+#: model:ir.ui.view,arch_db:iting_customization.purchase_order_form_view_iting
+#: model:ir.ui.view,arch_db:iting_customization.sale_order_form_view_iting
+#: model:ir.ui.view,arch_db:iting_customization.view_invoice_form
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: iting_customization
+#: model:ir.model,name:iting_customization.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Ventas. Anticipo pago factura"
+
+#. module: iting_customization
+#: model:ir.model.fields,field_description:iting_customization.field_account_invoice_salesman_id
+msgid "Salesman"
+msgstr "Vendedor"
+
+#. module: iting_customization
+#: model:ir.model.fields,field_description:iting_customization.field_purchase_order_salesman_id
+#: model:ir.model.fields,field_description:iting_customization.field_sale_order_salesman_id
+msgid "Salesperson"
+msgstr "Vendedor"
+
+#. module: iting_customization
+#: model:ir.ui.view,arch_db:iting_customization.invoice_supplier_form_iting
+#: model:ir.ui.view,arch_db:iting_customization.purchase_order_form_view_iting
+#: model:ir.ui.view,arch_db:iting_customization.sale_order_form_view_iting
+#: model:ir.ui.view,arch_db:iting_customization.view_invoice_form
+msgid "salesman"
+msgstr "Vendedor"
+
