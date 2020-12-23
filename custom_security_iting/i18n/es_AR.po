@@ -1,0 +1,26 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* iting_custom_security
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-25 01:40+0000\n"
+"PO-Revision-Date: 2020-08-25 01:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: iting_custom_security
+#: model:res.groups,name:iting_custom_security.group_delete_payment_term
+msgid "Allow Delete Payment Term"
+msgstr "Permite eliminar plazo de pago"
+
+#. module: iting_custom_security
+#: model:res.groups,name:iting_custom_security.group_delete_invoice_refund
+msgid "Allow Delete Invoice"
+msgstr "Permite eliminar facturas y notas de credito"
