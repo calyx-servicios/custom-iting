@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* iting_custom_security
+#	* custom_security_iting
 #
 msgid ""
 msgstr ""
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: iting_custom_security
-#: model:res.groups,name:iting_custom_security.group_delete_payment_term
+#. module: custom_security_iting
+#: model:res.groups,name:custom_security_iting.group_delete_payment_term
 msgid "Allow Delete Payment Term"
 msgstr "Permite eliminar plazo de pago"
 
-#. module: iting_custom_security
-#: model:res.groups,name:iting_custom_security.group_delete_invoice_refund
+#. module: custom_security_iting
+#: model:res.groups,name:custom_security_iting.group_delete_invoice_refund
 msgid "Allow Delete Invoice"
 msgstr "Permite eliminar facturas y notas de credito"
