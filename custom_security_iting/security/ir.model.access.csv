@@ -11,5 +11,5 @@ access_account_invoice_group_invoice,account.invoice group invoice,account.model
 access_account_invoice_purchase,account_invoice purchase,account.model_account_invoice,purchase.group_purchase_user,1,1,1,0
 access_account_invoice_uinvoice,account.invoice,account.model_account_invoice,account.group_account_invoice,1,1,1,0
 
-access_crm_team_user,crm.team.user,model_crm_team,sales_team.group_sale_salesman,1,0,0,0
-access_account_analytic_accountant,account.analytic.account accountant,analytic.model_account_analytic_account,account.group_account_user,1,1,1,1
+access_account_analytic_account_salesman,account_analytic_account salesman,analytic.model_account_analytic_account,sales_team.group_sale_salesman,1,0,0,0
+access_account_analytic_accountant,account.analytic.account accountant,analytic.model_account_analytic_account,account.group_account_user,1,0,0,0
