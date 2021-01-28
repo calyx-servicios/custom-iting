@@ -1,0 +1,109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* contract_sale_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-25 20:51+0000\n"
+"PO-Revision-Date: 2021-01-25 20:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contract_sale_order
+#: model:ir.model.fields,field_description:contract_sale_order.field_account_analytic_account_account_analytic_account_id
+msgid "Account Analytic"
+msgstr "Cuenta Analítica"
+
+#. module: contract_sale_order
+#: model:ir.model,name:contract_sale_order.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Cuenta Analítica"
+
+#. module: contract_sale_order
+#: model:ir.model.fields,field_description:contract_sale_order.field_sale_order_contract_id
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: contract_sale_order
+#: model:ir.model,name:contract_sale_order.model_account_analytic_contract_line
+msgid "Contract Lines"
+msgstr "Líneas de Contrato"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.account_analytic_account_recurring_quotations_form
+msgid "Create Quotation"
+msgstr "Crear Presupuesto"
+
+#. module: contract_sale_order
+#: model:ir.actions.server,name:contract_sale_order.account_analytic_cron_for_quotation_ir_actions_server
+#: model:ir.cron,cron_name:contract_sale_order.account_analytic_cron_for_quotation
+#: model:ir.cron,name:contract_sale_order.account_analytic_cron_for_quotation
+msgid "Generate Recurring Quotation from Contracts"
+msgstr "Generar presupuestos recurrentes desde los contratos"
+
+#. module: contract_sale_order
+#: model:ir.model.fields,field_description:contract_sale_order.field_account_analytic_account_recurring_quotations
+msgid "Generate recurring quotations automatically"
+msgstr "Generar presupuestos recurrentes automáticamente"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.account_analytic_account_recurring_quotations_form
+#: model:ir.ui.view,arch_db:contract_sale_order.view_account_analytic_account_journal_tree
+msgid "Next Date"
+msgstr "Fecha de la Próxima Acción"
+
+#. module: contract_sale_order
+#: model:ir.model.fields,field_description:contract_sale_order.field_account_analytic_contract_line_purchase_price
+#: model:ir.model.fields,field_description:contract_sale_order.field_account_analytic_invoice_line_purchase_price
+msgid "Purchase Price"
+msgstr "Precio de compra"
+
+#. module: contract_sale_order
+#: model:ir.model,name:contract_sale_order.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
+
+#. module: contract_sale_order
+#: model:ir.actions.act_window,name:contract_sale_order.act_recurring_quotations
+msgid "Quotations"
+msgstr "Presupuestos"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.account_analytic_account_recurring_quotations_form
+msgid "Quotations Line"
+msgstr "Lineas de presupuesto"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.account_analytic_account_recurring_quotations_form
+msgid "Recurring Invoices / Quotations"
+msgstr "Facturas / Presupuestos recurrentes"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.view_analytic_contract_search_quotation
+msgid "Recurring Invoices and Quotations"
+msgstr "Facturas / Presupuestos recurrentes"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.view_analytic_contract_search_quotation
+msgid "Recurring Quotations"
+msgstr "Presupuestos recurrentes"
+
+#. module: contract_sale_order
+#: code:addons/contract_sale_order/models/account_analytic_account.py:108
+#, python-format
+msgid "You must review start and end dates!\n"
+"%s"
+msgstr "Por favor verifique la fecha de inicio y fecha final\n"
+"%s"
+
+#. module: contract_sale_order
+#: model:ir.ui.view,arch_db:contract_sale_order.account_analytic_account_recurring_quotations_form
+msgid "⇒ Show recurring quotations"
+msgstr "⇒ Mostrar presupuestos recurrentes"
+

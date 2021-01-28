@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_order_filter_contract" model="ir.ui.view">
+        <field name="name">sale.order.select.contract</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <separator/>
+                <field name="contract_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_view_order_contract_form" model="ir.ui.view">
+        <field name="name">Sale order Contract</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="validity_date" position="after">
+                <field name="contract_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_view_quotation_origin_tree" model="ir.ui.view">
+        <field name="name">quotation origin tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="origin"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_view_order_tree_origin" model="ir.ui.view">
+        <field name="name">sale order origin tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="origin"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="act_recurring_quotations" model="ir.actions.act_window">
+        <field name="name">Quotations</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                      (0, 0, {'view_mode': 'tree', 'view_id': ref('sale.view_order_tree')}),
+                      (0, 0, {'view_mode': 'form', 'view_id': ref('sale.view_order_form')})]"/>
+        <field name="context">{
+            'search_default_contract_id': [active_id],
+            'default_contract_id': active_id}
+        </field>
+    </record>
+
+</odoo>
