@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_analytic_account_recurring_quotations_form" model="ir.ui.view">
+        <field name="name">Contract quotations form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
+        <field name="arch" type="xml">
+
+            <field name="currency_id" position="attributes">
+                <attribute name="invisible">context.get('is_contract') == 1</attribute>
+            </field>
+
+            <field name="date_end" position="before">
+                <field name="account_analytic_account_id" 
+                    attrs="{'invisible': [('recurring_quotations','=',False)], 'required': [('recurring_quotations', '=', True)]}" 
+                    options="{'no_open':True,'no_create': True, 'no_create_edit':1}"
+                    />
+            </field>
+
+            <field name="partner_id" position="attributes">
+                <attribute name="attrs">{'required': ['|', ('recurring_quotations', '=', True), ('recurring_invoices', '=', True)]}</attribute>
+            </field>
+
+            <field name="recurring_next_date" position="replace">
+                <field name="recurring_next_date" string="Next Date"
+                    attrs="{'required': ['|',('recurring_invoices', '=', True),('recurring_quotations', '=', True)]}"
+                    />
+            </field>
+
+            <field name="recurring_invoicing_type" position="attributes">
+                <attribute name="attrs">{'invisible': [('recurring_quotations', '=', True)]}</attribute>
+            </field>
+
+            <xpath expr="//form/sheet/separator" position="replace">
+                <separator string="Recurring Invoices / Quotations"
+                    attrs="{'invisible': ['&amp;', ('recurring_invoices','!=',True), ('recurring_quotations', '!=', True)]}"
+                    />
+            </xpath>
+
+            <xpath expr="//form/sheet/div[4]" position="after">
+                <div>
+                    <field name="recurring_quotations" class="oe_inline"/>
+                    <label for="recurring_quotations" />
+                    <button name="recurring_create_quotations"
+                        type="object"
+                        attrs="{'invisible': [('recurring_quotations', '!=', True)]}"
+                        string="Create Quotation"
+                        class="oe_link"
+                        groups="base.group_no_one"
+                        args='0'
+                        />
+                    <button name="show_recurring_quotations"
+                        type="object"
+                        attrs="{'invisible': [('recurring_quotations','!=',True)]}"
+                        string="⇒ Show recurring quotations"
+                        class="oe_link"
+                        />
+                </div>
+            </xpath>
+
+            <xpath expr="//form/sheet/group[2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['&amp;', ('recurring_quotations', '!=', True), ('recurring_invoices','!=',True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//form/sheet/div[6]" position="before">
+                <label for="recurring_invoice_line_ids" string="Quotations Line"
+                    attrs="{'invisible': [('recurring_quotations','=',False)]}"
+                    />
+            </xpath>
+
+            <xpath expr="//form/sheet/div[6]" position="attributes">
+                <attribute name="attrs">{'invisible': ['&amp;', ('recurring_quotations', '!=', True), ('recurring_invoices','!=',True)]}</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='price_unit']" position="after">
+                <field name="purchase_price" groups="base.group_user"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_account_journal_tree" model="ir.ui.view">
+        <field name="name">account.analytic.account.view.tree</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.view_account_analytic_account_journal_tree"/>
+        <field name="arch" type="xml">
+            <field name="recurring_next_date" position="replace">
+                <field name="recurring_next_date" string="Next Date" invisible="not context.get('is_contract', False)"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="contract.action_account_analytic_sale_overdue_all" model="ir.actions.act_window">
+        <field name="context">{
+            'is_contract':1,
+            'search_default_not_finished':1, 
+            'search_default_recurring_quotations_invoices':1,
+            'default_contract_type': 'sale',
+            }
+        </field>
+    </record>
+
+    <record id="view_analytic_contract_search_quotation" model="ir.ui.view">
+        <field name="name">Contract search Add Quotation</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <separator/>
+                <filter name="recurring_quotations"
+                    string="Recurring Quotations"
+                    domain="[('recurring_quotations','=',True)]"/>
+                <separator/>
+                <filter name="recurring_quotations_invoices"
+                    string="Recurring Invoices and Quotations"
+                    domain="['|',('recurring_quotations','=',True),('recurring_invoices','=',True)]"/>
+                <separator/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+
