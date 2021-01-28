@@ -1,16 +1,17 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
+account_analytic_account salesman,account_analytic_account salesman,analytic.model_account_analytic_account,sales_team.group_sale_salesman,1,0,0,0
+account_analytic_account accountant,account.analytic.account accountant,analytic.model_account_analytic_account,account.group_account_user,1,0,0,0
+access_account_analytic_responsible,access_account_analytic_responsible,analytic.model_account_analytic_account,__export__.res_groups_109_7ec1b216,1,0,0,0
+
+access_account_invoice_user,account.invoice.user,account.model_account_invoice,hr_expense.group_hr_expense_user,1,1,1,0
+account_invoice_group_invoice,account.invoice group invoice,account.model_account_invoice,account.group_account_invoice,1,1,1,0
+account_invoice_purchase,account_invoice purchase,account.model_account_invoice,purchase.group_purchase_user,1,1,1,0
+account_invoice,account.invoice,account.model_account_invoice,__export__.res_groups_98_4f89e507,1,1,1,0
+account_invoice,account.invoice,account.model_account_invoice,account.group_account_invoice,1,1,1,0
+account_invoice_manager,account_invoice manager,account.model_account_invoice,sales_team.group_sale_manager,1,1,1,0
+account_invoice_group_invoice,account.invoice group invoice,account.model_account_invoice,__export__.res_groups_98_4f89e507,1,1,1,0
+account_invoice_group_delete,account.invoice group delete,account.model_account_invoice,group_delete_invoice,1,1,1,1
+
 access_account_payment_term_partner_manager,account.payment.term partner manager,account.model_account_payment_term,group_delete_payment_term,1,1,1,1
 access_account_payment_term_manager,account.payment.term,account.model_account_payment_term,account.group_account_manager,1,0,0,0
-
-access_account_invoice_manager,account.invoice manager,account.model_account_invoice,group_delete_invoice_refund,1,1,1,1
-access_account_invoice_refund_manager,account.invoice.refund manager,account.model_account_invoice_refund,group_delete_invoice_refund,1,1,1,1
-access_account_invoice_user,account.invoice.user,account.model_account_invoice,hr_expense.group_hr_expense_user,1,1,1,0
-access_account_invoice_manager,account_invoice manager,account.model_account_invoice,sales_team.group_sale_manager,1,1,1,0
-access_account_invoice_group_invoice,account.invoice group invoice,account.model_account_invoice,account.group_account_invoice,1,1,1,0
-access_account_invoice_purchase,account_invoice purchase,account.model_account_invoice,purchase.group_purchase_user,1,1,1,0
-access_account_invoice_uinvoice,account.invoice,account.model_account_invoice,account.group_account_invoice,1,1,1,0
-
-access_account_analytic_account_salesman,account_analytic_account salesman,analytic.model_account_analytic_account,sales_team.group_sale_salesman,1,0,0,0
-access_account_analytic_accountant,account.analytic.account accountant,analytic.model_account_analytic_account,account.group_account_user,1,0,0,0
-access_account_analytic_account,access_account_analytic_account,analytic.model_account_analytic_account,analytic.group_analytic_accounting,1,0,0,0
