@@ -46,6 +46,7 @@ class AccountAnalyticAccount(models.Model):
         quotation_line_vals.update(
             {
                 "price_unit": line.price_unit,
+                "name": line.name,
             }
         )
         return quotation_line_vals
