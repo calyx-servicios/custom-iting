@@ -69,3 +69,7 @@ msgstr "Vendedor"
 msgid "salesman"
 msgstr "Vendedor"
 
+#. module: iting_customization
+#: model:ir.model.fields,field_description:iting_customization.field_sale_order_pre_sale
+msgid "Pre-sale"
+msgstr "Pre-Venta"
