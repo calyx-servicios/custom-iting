@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Iting Customization',
-    'version': '11.0.1',
+    'version': '11.0.2',
     'category': 'Tools',
     'author': "Calyx",
     'website': 'www.calyxservicios.com.ar',
