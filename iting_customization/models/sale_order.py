@@ -29,3 +29,9 @@ class SaleOrder(models.Model):
 			for purchase in self.purchase_ids:
 				purchase.salesman_id=self.salesman_id.id
 			return ret
+	
+	pre_sale = fields.Many2many(
+        string = 'Pre-sale',
+        comodel_name = 'res.users',
+        required = True
+    )
