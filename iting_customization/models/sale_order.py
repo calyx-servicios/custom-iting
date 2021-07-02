@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
 			return ret
 	
 	pre_sale = fields.Many2many(
-        string = 'Pre-sale',
-        comodel_name = 'res.users',
-        required = True
-    )
+		string = "Pre-Sale",
+		comodel_name = "hr.employee",
+		required = True
+	)

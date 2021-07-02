@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    <record id="is_pre_sale_inherit_HR" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="resource_calendar_id" position = "after">
+                <field name="is_pre_sale"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

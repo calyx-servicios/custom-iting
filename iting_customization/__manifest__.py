@@ -36,7 +36,8 @@
     'external_dependencies': {
     },
     'data': [
-        'view/account_invoice.xml'
+        'view/account_invoice.xml',
+        'view/employee.xml'
     ],
     'demo': [
     ],
