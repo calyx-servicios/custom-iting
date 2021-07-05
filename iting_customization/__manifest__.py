@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Iting Customization',
-    'version': '11.0.2',
+    'version': '11.0.3',
     'category': 'Tools',
     'author': "Calyx",
     'website': 'www.calyxservicios.com.ar',
@@ -37,7 +37,7 @@
     },
     'data': [
         'view/account_invoice.xml',
-        'view/employee.xml'
+        'view/users.xml'
     ],
     'demo': [
     ],
