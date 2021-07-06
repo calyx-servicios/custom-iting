@@ -29,3 +29,15 @@ class SaleOrder(models.Model):
 			for purchase in self.purchase_ids:
 				purchase.salesman_id=self.salesman_id.id
 			return ret
+	
+	pre_sale = fields.Many2many(
+		string = "Pre-Sale",
+		comodel_name = "res.users",
+		required = True
+	)
+
+	@api.onchange('pre_sale')
+	def _check_max_presale_(self):
+		max_pre_salers = 2
+		if len(self.pre_sale)> max_pre_salers:
+			raise ValidationError("Max number of pre-sales users")

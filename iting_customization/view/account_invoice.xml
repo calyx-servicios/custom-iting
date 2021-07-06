@@ -44,6 +44,7 @@
     <xpath expr="//field[@name='payment_term_id']" position="after">
             <field name="user_id" string="Responsible"/>
             <field name="salesman_id" string="salesman"/>
+            <field name="pre_sale" widget="many2many_tags" attrs="{'readonly':[['state','not in', ['draft']]]}"  domain = "[('is_pre_sale', '=', True)]"/>
         </xpath>        
     </field>
 </record>
@@ -59,5 +60,5 @@
             
         </xpath>
         </field>
-    </record>
+</record>
 </odoo>
