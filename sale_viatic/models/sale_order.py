@@ -195,3 +195,10 @@ class SaleOrderLine(models.Model):
             #currency = line.order_id.pricelist_id.currency_id
             price = line.purchase_price
             line.cost = price * line.product_uom_qty
+
+    @api.model
+    def create(self, vals):
+        purchase_price = vals.get("purchase_price")
+        if purchase_price==0.00:
+            raise ValidationError("Cost price field cannot be 0")
+        return super(SaleOrderLine, self).create(vals)
