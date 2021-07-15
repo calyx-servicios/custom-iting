@@ -11,7 +11,7 @@
     'website': "http://www.calyxservicios.com.ar",
     'category': 'Sales',
     'version': '11.0.1.0.0',
-    'depends' : ['sale', 'sale_margin', 'l10n_ar_sale'],
+    'depends' : ['sale', 'sale_margin', 'l10n_ar_sale', 'sale_margin'],
 
     'data': [
         'security/security.xml',
