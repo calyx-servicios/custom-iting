@@ -26,12 +26,12 @@
     'license': 'AGPL-3',
     'summary': '''...''',
     'depends': [
+        'base',
         'l10n_ar_account',
         'manual_currency_exchange_rate',
         'sale',
         'purchase',
-        'purchase_on_demand'
-        
+        'purchase_on_demand',
     ],
     'external_dependencies': {
     },
