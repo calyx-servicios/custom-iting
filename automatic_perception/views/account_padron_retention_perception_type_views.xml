@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="view_account_padron_retention_perception_type_form_inherit" model="ir.ui.view">
+		<field name="name">account.padron.retention.perception.type.form</field>
+        <field name="model">account.padron.retention.perception.type</field>
+        <field name="inherit_id" ref="account_padron_retention_perception.view_account_padron_retention_perception_type_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='padron_line_ids']" position="before">
+        		<button name="create_perception_lines" string="Create Perceptions" type="object" class="oe_highlight"/>
+        	</xpath>
+        </field>
+    </record>
+</odoo>
