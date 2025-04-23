@@ -280,7 +280,6 @@ class AccountInvoice(models.Model):
                     id_impositivo, moneda_id, moneda_ctz, obs_comerciales,
                     obs_generales, forma_pago, incoterms,
                     idioma_cbte, incoterms_ds, fecha_pago,
-                    cancela_misma_moneda_ext, condicion_iva_receptor=condicion_iva_receptor_id
                 )
             elif afip_ws == 'wsbfe':
                 zona = 1  # Nacional (la unica devuelta por afip)
