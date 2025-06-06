@@ -186,6 +186,8 @@ class AccountInvoice(models.Model):
             imp_op_ex = str("%.2f" % inv.vat_exempt_base_amount)
             moneda_id = inv.currency_id.afip_code
             moneda_ctz = inv.currency_rate
+            moneda_ctz_afip = float("{:.2f}".format(moneda_ctz))
+            moneda_ctz = moneda_ctz_afip
             cancela_misma_moneda_ext= inv.l10n_ar_payment_foreign_currency
             condicion_iva_receptor_id= inv.commercial_partner_id.afip_responsability_type_id.code
 
@@ -275,6 +277,7 @@ class AccountInvoice(models.Model):
                     commercial_partner.city or '',
                 ])
                 pais_dst_cmp = commercial_partner.country_id.afip_code
+                _logger.warning('PREVIO A FC DE EXPORTACION:')
                 ws.CrearFactura(
                     doc_afip_code, pos_number, cbte_nro, fecha_cbte,
                     imp_total, tipo_expo, permiso_existente, pais_dst_cmp,
@@ -283,6 +286,7 @@ class AccountInvoice(models.Model):
                     obs_generales, forma_pago, incoterms,
                     idioma_cbte, incoterms_ds, fecha_pago,
                 )
+                _logger.warning('POST A FC DE EXPORTACION:')
             elif afip_ws == 'wsbfe':
                 zona = 1  # Nacional (la unica devuelta por afip)
                 # los responsables no inscriptos no se usan mas
