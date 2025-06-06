@@ -189,6 +189,8 @@ class AccountInvoice(models.Model):
             cancela_misma_moneda_ext= inv.l10n_ar_payment_foreign_currency
             condicion_iva_receptor_id= inv.commercial_partner_id.afip_responsability_type_id.code
 
+            _logger.warning('La cotización es: %s' % moneda_ctz)
+
             CbteAsoc = inv.get_related_invoices_data()
 
             # create the invoice internally in the helper
@@ -511,7 +513,6 @@ class AccountInvoice(models.Model):
 
     def pyafipws_get_currency_rate(self, ws):
         return ws.ParamGetCotizacion(self.currency_id.l10n_ar_afip_code)
-    
 
 
     # # Metodo sobreescripto
