@@ -509,6 +509,9 @@ class AccountInvoice(models.Model):
             # afip de respuesta
             inv._cr.commit()
 
+    def pyafipws_get_currency_rate(self, ws):
+        return ws.ParamGetCotizacion(self.currency_id.l10n_ar_afip_code)
+    
 
 
     # # Metodo sobreescripto
@@ -636,6 +639,4 @@ class AccountInvoice(models.Model):
     #     else:
     #         return _("AFIP WS %s not implemented") % afip_ws
 
-    # def pyafipws_get_currency_rate(self, ws):
-    #     return ws.ParamGetCotizacion(self.currency_id.l10n_ar_afip_code)
     
