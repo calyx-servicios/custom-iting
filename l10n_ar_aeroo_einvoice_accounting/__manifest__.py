@@ -1,6 +1,6 @@
 {
     'name': 'Argentinian Like invoice Aroe Report',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.0.1',
     'category': 'Localization/Argentina',
     'sequence': 14,
     'author': 'Calyx Servicios S.A., Odoo Community Association (OCA)',
@@ -11,6 +11,7 @@
         'l10n_ar_afipws_fe',
         # suponemos que si instalas este queres el comun tmb
         'l10n_ar_aeroo_invoice',
+        'l10n_ar_arca_transparencia_fiscal'
         # 'report_extended_account',
         # 'l10n_ar_aeroo_base',
     ],
