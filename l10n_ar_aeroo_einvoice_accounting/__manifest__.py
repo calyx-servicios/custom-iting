@@ -1,6 +1,6 @@
 {
     'name': 'Argentinian Like invoice Aroe Report',
-    'version': '11.0.1.0.1',
+    'version': '11.0.1.0.2',
     'category': 'Localization/Argentina',
     'sequence': 14,
     'author': 'Calyx Servicios S.A., Odoo Community Association (OCA)',
